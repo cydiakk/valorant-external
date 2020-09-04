@@ -5,11 +5,16 @@
 #define PAGE_SIZE 4096
 
 //1.07
+//#define MAGIC_O_CODECAVE		0x137954
+//#define MAGIC_O_READ_PROXY		0x29DD610
+//#define MAGIC_O_WRITE_PROXY		0x120F298
+//#define MAGIC_O_DATAHK			0x6BDE0C0
+//#define MAGIC_O_ORIGINAL		0x283F8E0
+
 #define MAGIC_O_CODECAVE		0x137954
 #define MAGIC_O_READ_PROXY		0x29DD610
 #define MAGIC_O_WRITE_PROXY		0x120F298
 #define MAGIC_O_DATAHK			0x6BDE0C0
-//#define MAGIC_O_ORIGINAL		0x283F930
 #define MAGIC_O_ORIGINAL		0x283F8E0
 
 namespace magic {
@@ -164,29 +169,45 @@ namespace magic {
 		uintptr_t code_start = base + 0x1000;
 
 		void* codebuffer = malloc((size_t)(nt.OptionalHeader.SizeOfCode));
-		driver::copy_memory(globals::t_proc_id, code_start, GetCurrentProcessId(), (uintptr_t)codebuffer, nt.OptionalHeader.SizeOfCode - 0x1);
+		driver::copy_memory(globals::t_proc_id, code_start, GetCurrentProcessId(), (uintptr_t)codebuffer, nt.OptionalHeader.SizeOfCode);
 
 		uintptr_t virtual_read_proxy = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x48\x8B\x00\xC3\x33", (char*)"xxxxx");
-		if (!virtual_read_proxy) { return false; }
+		if (!virtual_read_proxy) { std::cout << "failed to find read proxy" << std::endl; return false; }
 		magic_o_read_proxy = code_start + (virtual_read_proxy - (uintptr_t)codebuffer);
 
 		uintptr_t virtual_write_proxy = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x89\x01\xC3", (char*)"xxx");
-		if (!virtual_write_proxy) { return false; }
+		if (!virtual_write_proxy) { std::cout << "failed to find write proxy" << std::endl; return false; }
 		magic_o_write_proxy = code_start + (virtual_write_proxy - (uintptr_t)codebuffer);
 
 		uintptr_t virtual_hk_function = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x48\x8B\x05\x00\x00\x00\x00\x45\x33\xC0\x48\x8B\x4D\x08\x48\x8B\xD3\xFF\xD0\x4C", (char*)"xxx????xxxxxxxxxxxxx");
-		if(!virtual_hk_function) { return false; }
+		if(!virtual_hk_function) { std::cout << "failed to find hook funciton" << std::endl; return false; }
 
 		//calculate original function / datahk offset
 		uint32_t o_datahk = driver::read<uint32_t>(globals::t_proc_id, globals::t_process_base + 0x1000 + (virtual_hk_function - (uintptr_t)codebuffer) + 0x3);
 		magic_o_datahk = globals::t_process_base + 0x1000 + (virtual_hk_function - (uintptr_t)codebuffer) + o_datahk + 0x7;
 
+		std::cout << "magic o dadta hook: " << magic_o_datahk << std::endl;
+
 		magic_o_original_func = driver::read<uint64_t>(globals::t_proc_id, magic_o_datahk);
+
+		std::cout << "magic o dadta hook fucntion: " << magic_o_original_func << std::endl;
+
+		uintptr_t uworld_decrypt = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x44\x8B\x35\x00\x00\x00\x00\x41\x8B\xF6\x45\x8B\xCE", (char*)"xxx????xxxxxx");
+		if (!uworld_decrypt) { return false; }
+
+		uintptr_t real_decrypt = globals::t_process_base + 0x1000 + (uworld_decrypt - (uintptr_t)codebuffer);
+		uint32_t data_offset = driver::read<uint32_t>(globals::t_proc_id, real_decrypt + 0x3);
+
+		uintptr_t key = real_decrypt + data_offset + 0x7;
+
+		std::cout << "uworld key: " << key << std::endl;
 
 		return true;
 	}
 
 	bool write_shell(uint64_t decrypted_world, uint64_t base, uintptr_t& pentitycache, uintptr_t& plocalproxy) {
+		//auto_update();
+
 		//find a place to write the results
 		presults = scan::scan_rw_memory(globals::t_proc_id, 
 			(char*)"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 

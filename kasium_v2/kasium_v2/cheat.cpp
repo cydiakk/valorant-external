@@ -64,7 +64,7 @@ namespace cheat {
 		//copy all entities at once
 		driver::copy_memory(globals::t_proc_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
 
-//		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
 			entityCache cached = entities[i];
@@ -72,7 +72,7 @@ namespace cheat {
 			TslEntity tslEntity{};
 			if (!tslEntity.get_info(cached)) {
 //#ifdef DEBUG_PRINT
-//				if (tslEntity.num_bones > 0x65 && tslEntity.num_bones < 0x100) {
+//				if (tslEntity.num_bones > 0x60 && tslEntity.num_bones < 0x100) {
 //					SetConsoleTextAttribute(hConsole, 2);
 //					std::cout << " [actor NOT pushed]" << std::endl;
 //					std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
@@ -96,6 +96,8 @@ namespace cheat {
 //				std::cout << " [actor pushed]" << std::endl;
 //				std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
 //				std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
+//				std::cout << "		- head_pos_2d: x: " << tslEntity.head_position_2d.x << "		y: " << tslEntity.head_position_2d.y << std::endl;
+//				std::cout << "		- root_pos_2d: x: " << tslEntity.root_position_2d.x << "		y: " << tslEntity.root_position_2d.y << std::endl;
 //				std::cout << "		[ptr]" << std::endl;
 //				std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
 //				std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
@@ -167,22 +169,23 @@ namespace cheat {
 		for (uint32_t i = 0; i < entityListCpy.size(); ++i) {
 			TslEntity current = entityListCpy[i];
 
-			if (localPlayer.local_pawn == current.p_obj_ptr) {
+			if (localPlayer.local_pawn == current.p_obj_ptr)
+				continue;
+
+			if (current.head_position_2d.y >= current.root_position_2d.y)
+				continue;
+
+			if (current.num_bones <= 40 && current.num_bones > 5) {
+				renderer.draw_corner_box(current.root_position_2d.x - 20.f, current.root_position_2d.y - 20.f, 100 / (distance / 3.5f), 100 / (distance / 3.5f), 2, D2D1::ColorF::White);
 				continue;
 			}
 
-			if (localPlayer.player_state == current.player_state || current.head_position.z <= current.root_position.z)
+			if (current.num_bones > 0x66 && current.num_bones < 0x63)
 				continue;
 
 			//update cameramanager every entity to keep things fluent
 			localPlayer.get_camera();
-
 			distance = localPlayer.camera_position.Distance(current.root_position);
-
-			if (current.num_bones <= 50) {
-				renderer.draw_corner_box(current.root_position_2d.x - 20.f, current.root_position_2d.y - 20.f, 100 / (distance / 3.5f), 100 / (distance / 3.5f), 2, D2D1::ColorF::White);
-				continue;
-			}
 
 			int height = (current.root_position_2d.y - current.head_position_2d.y) * 2.5;
 

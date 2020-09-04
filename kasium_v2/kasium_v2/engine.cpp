@@ -113,7 +113,7 @@ namespace engine {
 
 	FTransform GetBoneIndex(uintptr_t mesh, int index)
 	{
-		uintptr_t bonearray = driver::read<uintptr_t>(globals::t_proc_id, mesh + 0x548);
+		uintptr_t bonearray = driver::read<uintptr_t>(globals::t_proc_id, mesh + 0x550);
 
 		if (!utils::is_valid_addr(bonearray))
 			bonearray = driver::read<uintptr_t>(globals::t_proc_id, mesh + 0x558);

@@ -96,10 +96,6 @@ namespace cheat {
 			this->mesh = mesh;
 
 			this->skeletal_mesh = driver::read<uintptr_t>(globals::t_proc_id, mesh + offsets::actor::mesh::skeletal_mesh);
-
-			//if(!utils::is_valid_addr(this->skeletal_mesh))
-			//	this->skeletal_mesh = driver::read<uintptr_t>(globals::t_proc_id, mesh + 0x548);
-
 			this->num_bones = driver::read<uint32_t>(globals::t_proc_id, this->skeletal_mesh + offsets::actor::mesh::bones_num);
 		}
 
@@ -124,6 +120,10 @@ namespace cheat {
 			this->head_position = engine::GetBoneWithRotation(mesh, engine::e_male_bones::Head);
 			this->root_position = driver::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
 
+			//if (this->head_position.z > this->root_position.z) {
+			//	return false;
+			//}
+
 			//no idea why this suddenly happens :-(
 			if (this->head_position.z < this->root_position.z) {
 				float diff = this->root_position.z - this->head_position.z;
@@ -131,10 +131,6 @@ namespace cheat {
 
 				head_position.z = root_position.z + (diff - diff / 3.3f);
 				root_position.z = zcache + (diff - diff / 3.3f);
-			}
-
-			if (head_position.z <= root_position.z) {
-				return false;
 			}
 
 			this->head_position_2d = engine::WorldToScreen(this->head_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);

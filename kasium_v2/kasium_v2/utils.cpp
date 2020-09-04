@@ -62,7 +62,7 @@ void utils::hide_from_taskbar(HWND hwnd) {
 }
 
 bool utils::is_valid_addr(uint64_t addr) {
-	if (addr > 0x10 && addr < 0x7FFFFFFFFFFF)
+	if (addr > 0x1000 && addr < 0x7FFFFFFFFFFF)
 		return true;
 	else
 		return false;

@@ -48,7 +48,8 @@ namespace offsets {
 		const uint32_t a_mesh = 0x408;
 		namespace mesh {
 			//bonearray == 0x548 || 0x558
-			const uint32_t skeletal_mesh = 0x538;
+			//skeletal_mesh = 0x538
+			const uint32_t skeletal_mesh = 0x540;
 			const uint32_t bones_num = 0x1A0;
 			const uint32_t b_recently_rendered = 0x69f;
 		}
