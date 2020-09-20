@@ -54,7 +54,8 @@ namespace offsets {
 			const uint32_t b_recently_rendered = 0x69f;
 		}
 
-		const uint32_t a_dmg_ctrl = 0xA50;
+		//const uint32_t a_dmg_ctrl = 0xA50;
+		const uint32_t a_dmg_ctrl = 0xA60;
 		namespace dmg_ctrl {
 			const uint32_t is_alive = 0x1A9;
 			const uint32_t health = 0x1B0;

@@ -27,7 +27,7 @@ namespace magic {
 #pragma pack(pop)
 #endif // !MAGIC_STRUCTS
 
+	extern bool magic_scan(uintptr_t& worldcrypt_key, uintptr_t& worldcrypt_state);
 	extern bool write_shell(uint64_t decrypted_world, uint64_t base, uintptr_t& pentitycache, uintptr_t& plocalproxy);
-
 	extern HijackState read_results();
 }

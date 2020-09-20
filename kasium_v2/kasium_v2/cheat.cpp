@@ -14,17 +14,25 @@ namespace cheat {
 	bool bShellcodeWritten = false;
 	uintptr_t plocalproxy = 0;
 	uintptr_t pentitycache = 0;
+	uintptr_t decrypted_world = 0;
 
 	bool cache() {
 		std::vector<TslEntity> tmpList;
 
 		//do magic
-		static uintptr_t decrypted_world = 0;
-
 		if (!bShellcodeWritten) { 
-			decrypted_world = decryptor::read_uworld(globals::t_process_base);
-			if (!utils::is_valid_addr(decrypted_world)) { return false; }
-			magic::write_shell(decrypted_world, globals::t_process_base, pentitycache, plocalproxy); 
+			//really critical... will close the cheat on failure
+			if (magic::magic_scan(decryptor::pkey, decryptor::pstate)) {
+				Beep(300, 100); Beep(500, 100);
+				decrypted_world = decryptor::read_uworld(globals::t_process_base);
+				if (!utils::is_valid_addr(decrypted_world)) { return false; }
+				magic::write_shell(decrypted_world, globals::t_process_base, pentitycache, plocalproxy);
+			}
+			else {
+				MessageBoxA(nullptr, "AutoUpdate ERROR!", "ERROR", NULL);
+				driver::stop();
+				exit(0);
+			}
 		}
 		bShellcodeWritten = true;
 
@@ -63,7 +71,6 @@ namespace cheat {
 
 		//copy all entities at once
 		driver::copy_memory(globals::t_proc_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
-
 		//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
@@ -72,7 +79,7 @@ namespace cheat {
 			TslEntity tslEntity{};
 			if (!tslEntity.get_info(cached)) {
 //#ifdef DEBUG_PRINT
-//				if (tslEntity.num_bones > 0x60 && tslEntity.num_bones < 0x100) {
+//				if (tslEntity.num_bones > 95 && tslEntity.num_bones < 105) {
 //					SetConsoleTextAttribute(hConsole, 2);
 //					std::cout << " [actor NOT pushed]" << std::endl;
 //					std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
@@ -111,10 +118,6 @@ namespace cheat {
 				tmpList.push_back(tslEntity);
 			}
 		}
-
-//#ifdef DEBUG_PRINT
-//		Sleep(1000);
-//#endif
 
 		entityList = tmpList;
 		return true;
@@ -169,19 +172,29 @@ namespace cheat {
 		for (uint32_t i = 0; i < entityListCpy.size(); ++i) {
 			TslEntity current = entityListCpy[i];
 
-			if (localPlayer.local_pawn == current.p_obj_ptr)
+			if (localPlayer.local_pawn == current.p_obj_ptr || !utils::is_valid_addr(current.skeletal_mesh))
 				continue;
 
-			if (current.head_position_2d.y >= current.root_position_2d.y)
+			if (current.head_position.z <= current.root_position.z || current.head_position_2d.y > current.root_position_2d.y)
 				continue;
 
-			if (current.num_bones <= 40 && current.num_bones > 5) {
+			if (current.num_bones > 5 && current.num_bones < 40) {
 				renderer.draw_corner_box(current.root_position_2d.x - 20.f, current.root_position_2d.y - 20.f, 100 / (distance / 3.5f), 100 / (distance / 3.5f), 2, D2D1::ColorF::White);
 				continue;
 			}
 
-			if (current.num_bones > 0x66 && current.num_bones < 0x63)
-				continue;
+			if (current.num_bones < 95 || current.num_bones > 102) { continue; }
+
+			{
+				Vector3 neckpos = engine::GetBoneWithRotation(current.mesh, engine::e_male_bones::Spine4);
+				Vector3 pelvispos = engine::GetBoneWithRotation(current.mesh, 72);
+
+				if (neckpos.x < current.root_position.x - 200 || neckpos.x > current.root_position.x + 200 || neckpos.y < current.root_position.y - 200 || neckpos.y > current.root_position.y + 200 || neckpos.z < current.root_position.z - 200 || neckpos.z > current.root_position.z + 200)
+					continue;
+
+				if (pelvispos.x < current.root_position.x - 200 || pelvispos.x > current.root_position.x + 200 || pelvispos.y < current.root_position.y - 200 || pelvispos.y > current.root_position.y + 200 || pelvispos.z > current.root_position.z + 200 || pelvispos.z < current.root_position.z - 200)
+					continue;
+			}
 
 			//update cameramanager every entity to keep things fluent
 			localPlayer.get_camera();

@@ -1,10 +1,13 @@
 #include "stdafx.hpp"
 #include "idadefs.hpp"
 
-#define DECRYPTOR_O_KEY		0x6CD99F8
-#define DECRYPTOR_O_STATE	0x6CD99C0
+#define DECRYPTOR_O_KEY			0x6CD99F8
+#define DECRYPTOR_O_STATE		0x6CD99C0
 
 namespace decryptor {
+	uint64_t pkey = 0;
+	uint64_t pstate = 0;
+
 	__forceinline __int64 decrypt_uworld(const uint32_t key, const uint64_t* state)
 	{
 		unsigned __int64 v19; // rcx
@@ -60,7 +63,7 @@ namespace decryptor {
 
 	__forceinline uint64_t read_uworld(uint64_t main_base)
 	{
-		uint64_t key = driver::read<uint64_t>(globals::t_proc_id, main_base + DECRYPTOR_O_KEY);
+		uint64_t key = driver::read<uint64_t>(globals::t_proc_id, pkey/*main_base + DECRYPTOR_O_KEY*/);
 		if (!key) { return 0; }
 
 #pragma pack(push, 1)
@@ -70,7 +73,7 @@ namespace decryptor {
 		};
 #pragma pack(pop)
 		State state = { 0 };
-		state = driver::read<State>(globals::t_proc_id, main_base + DECRYPTOR_O_STATE);
+		state = driver::read<State>(globals::t_proc_id, pstate/*main_base + DECRYPTOR_O_STATE*/);
 
 		uintptr_t decrypt = decrypt_uworld(key, (const uint64_t*)& state);
 		return decrypt;

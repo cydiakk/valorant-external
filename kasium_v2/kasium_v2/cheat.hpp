@@ -116,7 +116,7 @@ namespace cheat {
 				this->health = 100;
 		}
 
-		bool get_2d_pos(uintptr_t mesh) {
+		void get_2d_pos(uintptr_t mesh) {
 			this->head_position = engine::GetBoneWithRotation(mesh, engine::e_male_bones::Head);
 			this->root_position = driver::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
 
@@ -125,18 +125,16 @@ namespace cheat {
 			//}
 
 			//no idea why this suddenly happens :-(
-			if (this->head_position.z < this->root_position.z) {
-				float diff = this->root_position.z - this->head_position.z;
-				float zcache = head_position.z;
+			//if (this->head_position.z < this->root_position.z) {
+			//	float diff = this->root_position.z - this->head_position.z;
+			//	float zcache = head_position.z;
 
-				head_position.z = root_position.z + (diff - diff / 3.3f);
-				root_position.z = zcache + (diff - diff / 3.3f);
-			}
+			//	head_position.z = root_position.z + (diff - diff / 3.3f);
+			//	root_position.z = zcache + (diff - diff / 3.3f);
+			//}
 
 			this->head_position_2d = engine::WorldToScreen(this->head_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
 			this->root_position_2d = engine::WorldToScreen(this->root_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
-
-			return true;
 		}
 
 		void get_dormant(uint32_t bdormant) {
@@ -161,9 +159,7 @@ namespace cheat {
 			this->get_visibility(cached.mesh);
 			this->get_root_position(cached.root_comp);
 
-			if (!this->get_2d_pos(cached.mesh)) {
-				return false;
-			}
+			this->get_2d_pos(cached.mesh);
 
 			this->get_health(cached.dmg_ctrl);
 			this->get_team(cached.playerstate);

@@ -34,7 +34,7 @@ bool driver::init() {
 	//setup buffer so kernelmode can find it
 	setupbuffer();
 
-	SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
+	//SetThreadPriority(GetCurrentThread(), THREAD_PRIORITY_BELOW_NORMAL);
 
 	std::cout << _xor_("[+] shared buffer ").c_str() << std::hex << "0x" << (uint64_t)& shared[1] << std::endl;
 	std::cout << _xor_("[+] local base: ").c_str() << std::hex << (uint64_t)GetModuleHandleA(NULL) << std::endl;
