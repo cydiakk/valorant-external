@@ -47,7 +47,7 @@ namespace cheat {
 
 			this->local_pawn = state.localpawn;
 			this->player_state = state.PlayerState;
-			this->team = driver::read<int32_t>(globals::t_proc_id, driver::read<uint64_t>(globals::t_proc_id, this->player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
+			this->team = core::read<int32_t>(globals::t_proc_id, core::read<uint64_t>(globals::t_proc_id, this->player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
 		}
 	};
 
@@ -89,18 +89,18 @@ namespace cheat {
 	private:
 		void get_team(uintptr_t player_state) {
 			this->player_state = player_state;
-			this->team = driver::read<int32_t>(globals::t_proc_id, driver::read<uint64_t>(globals::t_proc_id, player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
+			this->team = core::read<int32_t>(globals::t_proc_id, core::read<uint64_t>(globals::t_proc_id, player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
 		}
 
 		void get_mesh(uintptr_t mesh) {
 			this->mesh = mesh;
 
-			this->skeletal_mesh = driver::read<uintptr_t>(globals::t_proc_id, mesh + offsets::actor::mesh::skeletal_mesh);
-			this->num_bones = driver::read<uint32_t>(globals::t_proc_id, this->skeletal_mesh + offsets::actor::mesh::bones_num);
+			this->skeletal_mesh = core::read<uintptr_t>(globals::t_proc_id, mesh + offsets::actor::mesh::skeletal_mesh);
+			this->num_bones = core::read<uint32_t>(globals::t_proc_id, this->skeletal_mesh + offsets::actor::mesh::bones_num);
 		}
 
 		void get_visibility(uintptr_t mesh) {
-			byte b_recently_rendered = driver::read<byte>(globals::t_proc_id, mesh + offsets::actor::mesh::b_recently_rendered);
+			byte b_recently_rendered = core::read<byte>(globals::t_proc_id, mesh + offsets::actor::mesh::b_recently_rendered);
 			this->b_recently_rendered = utils::IsBitSet(b_recently_rendered, 5) ? true : false;
 		}
 
@@ -110,7 +110,7 @@ namespace cheat {
 
 		void get_health(uintptr_t damage_ctrl) {
 			this->damage_ctrl = damage_ctrl;
-			this->health = driver::read<float>(globals::t_proc_id, damage_ctrl + offsets::actor::dmg_ctrl::health);
+			this->health = core::read<float>(globals::t_proc_id, damage_ctrl + offsets::actor::dmg_ctrl::health);
 
 			if (this->health > 100)
 				this->health = 100;
@@ -118,7 +118,7 @@ namespace cheat {
 
 		void get_2d_pos(uintptr_t mesh) {
 			this->head_position = engine::GetBoneWithRotation(mesh, engine::e_male_bones::Head);
-			this->root_position = driver::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
+			this->root_position = core::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
 
 			//if (this->head_position.z > this->root_position.z) {
 			//	return false;

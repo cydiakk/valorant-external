@@ -1,86 +1,91 @@
 ﻿  aimbot.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
   cheat.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(203): warning C4244: "Initialisierung": Konvertierung von "double" in "int", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(209): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(212): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(218): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(226): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(229): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(235): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(240): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(244): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(250): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(254): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(260): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(284): warning C4244: "Argument": Konvertierung von "float" in "int", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(317): warning C4244: "=": Konvertierung von "_Ty1" in "uint32_t", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(202): warning C4244: "Initialisierung": Konvertierung von "double" in "int", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(208): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(211): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(217): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(225): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(228): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(234): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(239): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(243): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(249): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(253): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(259): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(282): warning C4244: "Argument": Konvertierung von "float" in "int", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(315): warning C4244: "=": Konvertierung von "_Ty1" in "uint32_t", möglicher Datenverlust
           with
           [
               _Ty1=float
           ]
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(318): warning C4244: "=": Konvertierung von "_Ty2" in "uint32_t", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(316): warning C4244: "=": Konvertierung von "_Ty2" in "uint32_t", möglicher Datenverlust
           with
           [
               _Ty2=float
           ]
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(326): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\cheat.cpp(330): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(324): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(328): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+  core.cpp
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
   decryptor.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\idadefs.hpp(71): warning C4005: "LOBYTE": Makro-Neudefinition
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\idadefs.hpp(71): warning C4005: "LOBYTE": Makro-Neudefinition
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(206): note: Siehe vorherige Definition von "LOBYTE"
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\idadefs.hpp(72): warning C4005: "LOWORD": Makro-Neudefinition
+D:\workspaces\kasium\kasium_v2\kasium_v2\idadefs.hpp(72): warning C4005: "LOWORD": Makro-Neudefinition
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(204): note: Siehe vorherige Definition von "LOWORD"
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\idadefs.hpp(74): warning C4005: "HIBYTE": Makro-Neudefinition
+D:\workspaces\kasium\kasium_v2\kasium_v2\idadefs.hpp(74): warning C4005: "HIBYTE": Makro-Neudefinition
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(207): note: Siehe vorherige Definition von "HIBYTE"
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\idadefs.hpp(75): warning C4005: "HIWORD": Makro-Neudefinition
+D:\workspaces\kasium\kasium_v2\kasium_v2\idadefs.hpp(75): warning C4005: "HIWORD": Makro-Neudefinition
   C:\Program Files (x86)\Windows Kits\10\Include\10.0.18362.0\shared\minwindef.h(205): note: Siehe vorherige Definition von "HIWORD"
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\decryptor.cpp(78): warning C4244: "Argument": Konvertierung von "uint64_t" in "const uint32_t", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\decryptor.cpp(78): warning C4244: "Argument": Konvertierung von "uint64_t" in "const uint32_t", möglicher Datenverlust
   definitions.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
   engine.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
   kasium_v2.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-  krnl.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
   magic.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\magic.cpp(82): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uint64_t" auf.
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\magic.cpp(237): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uint64_t" auf.
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\magic.cpp(251): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uintptr_t" auf.
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\magic.cpp(258): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uintptr_t" auf.
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\magic.cpp(259): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uintptr_t" auf.
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
+D:\workspaces\kasium\kasium_v2\kasium_v2\magic.cpp(82): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uint64_t" auf.
+D:\workspaces\kasium\kasium_v2\kasium_v2\magic.cpp(251): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uintptr_t" auf.
+D:\workspaces\kasium\kasium_v2\kasium_v2\magic.cpp(252): warning C4477: "printf": Die Formatzeichenfolge "%p" erfordert ein Argument vom Typ "void *", das variadic-Argument "1" weist aber den Typ "uintptr_t" auf.
   menu.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\D3DMenuInputItem.hpp(14): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\stdafx.hpp(3): warning C4005: "_CRT_SECURE_NO_WARNINGS": Makro-Neudefinition
+  D:\workspaces\kasium\kasium_v2\kasium_v2\menu.cpp(1): note: Siehe vorherige Definition von "_CRT_SECURE_NO_WARNINGS"
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
+D:\workspaces\kasium\kasium_v2\kasium_v2\D3DMenuInputItem.hpp(14): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
   scanner.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
   settings.cpp
   utils.cpp
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\utils.cpp(24): warning C4267: "Argument": Konvertierung von "size_t" nach "int", Datenverlust möglich
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\utils.cpp(220): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\utils.cpp(222): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\utils.cpp(228): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\workspaces\KASIUM\kasium_v2\kasium_v2\utils.cpp(242): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
-  kasium_v2.vcxproj -> D:\workspaces\KASIUM\kasium_v2\x64\Release\kasium_v2.lib
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "*": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4307: "+": Überlauf einer ganzzahligen Konstanten
+D:\workspaces\kasium\kasium_v2\kasium_v2\xorstr.hpp(209): warning C4309: "static_cast": Verkürzung eines konstanten Wertes
+D:\workspaces\kasium\kasium_v2\kasium_v2\utils.cpp(24): warning C4267: "Argument": Konvertierung von "size_t" nach "int", Datenverlust möglich
+D:\workspaces\kasium\kasium_v2\kasium_v2\utils.cpp(230): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\utils.cpp(232): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\utils.cpp(238): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\workspaces\kasium\kasium_v2\kasium_v2\utils.cpp(252): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
+  Code wird generiert.
+  Previous IPDB not found, fall back to full compilation.
+D:\workspaces\kasium\kasium_v2\kasium_v2\magic.cpp(263): warning C4715: "magic::write_shell": Nicht alle Codepfade geben einen Wert zurück.
+D:\workspaces\kasium\kasium_v2\kasium_v2\cheat.cpp(355): warning C4715: "cheat::cheat_loop": Nicht alle Codepfade geben einen Wert zurück.
+  All 1233 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  Codegenerierung ist abgeschlossen.
+  kasium_v2.vcxproj -> D:\workspaces\KASIUM\kasium_v2\x64\Release\kasium_v2.exe

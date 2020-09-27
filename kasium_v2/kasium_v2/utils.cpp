@@ -152,7 +152,7 @@ typedef NTSTATUS(WINAPI * ntqueryinformationthread)(HANDLE, LONG, PVOID, ULONG, 
 			HANDLE hThread = OpenThread(THREAD_QUERY_INFORMATION | THREAD_GET_CONTEXT, false, *it);
 			if (hThread) {
 				status = NtQueryInformationThread(hThread, 0, &tbi, sizeof(tbi), nullptr);
-				stacktop = driver::read<uint64_t>(process_id, (uint64_t)tbi.TebBaseAddress + 8);
+				stacktop = core::read<uint64_t>(process_id, (uint64_t)tbi.TebBaseAddress + 8);
 				if (stacktop != 0) {
 					//find the stack entry pointing to the function that calls "ExitXXXXXThread"
 					//Fun thing to note: It's the first entry that points to a address in kernel32
@@ -160,10 +160,11 @@ typedef NTSTATUS(WINAPI * ntqueryinformationthread)(HANDLE, LONG, PVOID, ULONG, 
 					ZeroMemory(ptrs, sizeof(ptrs));
 
 					uint32_t size = 0;
-					uint64_t bounds = driver::get_um_module(process_id, "kernel32.dll", size);
+					uint64_t bounds = 0;
+					core::get_um_module(process_id, "kernel32.dll", bounds, size);
 
 					if (bounds) {
-						if (driver::copy_memory(process_id, stacktop - 4096, GetCurrentProcessId(), (uintptr_t)ptrs, sizeof(ptrs))) {
+						if (core::mem_cpy(process_id, stacktop - 4096, GetCurrentProcessId(), (uintptr_t)ptrs, sizeof(ptrs))) {
 							//the proc is 64 bit
 							for (uint64_t i = 8; i < 4096; i++) {
 								uint64_t test = *(uintptr_t*)& ptrs[i];
@@ -178,6 +179,15 @@ typedef NTSTATUS(WINAPI * ntqueryinformationthread)(HANDLE, LONG, PVOID, ULONG, 
 		}
 	}
 	return 0;
+}
+
+wchar_t* utils::getwc(const char* c)
+{
+	const size_t cSize = strlen(c) + 1;
+	wchar_t* wc = new wchar_t[cSize];
+	mbstowcs(wc, c, cSize);
+
+	return wc;
 }
 
 bool utils::IsBitSet(byte b, int pos) { return (b & (1 << pos)) != 0; }

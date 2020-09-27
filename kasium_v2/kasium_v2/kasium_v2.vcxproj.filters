@@ -9,9 +9,6 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="Quelldateien\krnl">
-      <UniqueIdentifier>{a1cd3632-c187-4da5-b64c-5265b83a8004}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Quelldateien\utils">
       <UniqueIdentifier>{418ac41a-00c8-4248-be68-e3109b23feee}</UniqueIdentifier>
     </Filter>
@@ -51,13 +48,13 @@
     <Filter Include="engine">
       <UniqueIdentifier>{f31ea15f-9866-494b-bd93-3978387adff3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="core_client">
+      <UniqueIdentifier>{0c427f4d-b4c9-44d4-812c-2a6b950f5917}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kasium_v2.cpp">
       <Filter>Quelldateien</Filter>
-    </ClCompile>
-    <ClCompile Include="krnl.cpp">
-      <Filter>Quelldateien\krnl</Filter>
     </ClCompile>
     <ClCompile Include="utils.cpp">
       <Filter>Quelldateien\utils</Filter>
@@ -89,19 +86,16 @@
     <ClCompile Include="aimbot.cpp">
       <Filter>aimbot</Filter>
     </ClCompile>
+    <ClCompile Include="core.cpp">
+      <Filter>core_client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="krnl.hpp">
-      <Filter>Quelldateien\krnl</Filter>
-    </ClInclude>
     <ClInclude Include="stdafx.hpp">
       <Filter>Quelldateien</Filter>
     </ClInclude>
     <ClInclude Include="utils.hpp">
       <Filter>Quelldateien\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="krnl_defs.hpp">
-      <Filter>Quelldateien\krnl</Filter>
     </ClInclude>
     <ClInclude Include="cli.hpp">
       <Filter>Quelldateien\render</Filter>
@@ -166,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="aimbot.hpp">
       <Filter>aimbot</Filter>
+    </ClInclude>
+    <ClInclude Include="core.h">
+      <Filter>core_client</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

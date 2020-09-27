@@ -8,7 +8,7 @@
 #include <wrl.h>
 
 #include "cli.hpp"
-#include "krnl.hpp"
+#include "core.h"
 
 #pragma comment( lib, "dxgi" )
 #pragma comment( lib, "d2d1" )
@@ -17,7 +17,7 @@
 #pragma comment( lib, "dwrite" )
 
 #define RET_CHK(x) if ( x != S_OK ) return
-#define RET_CHK2(x) if ( x != S_OK ) { driver::set_thread( remote_window, remote_thread ); return; }
+#define RET_CHK2(x) if ( x != S_OK ) { core::set_thread( remote_window, remote_thread ); return; }
 
 class d2d_window_t
 {
@@ -94,7 +94,7 @@ public:
 		RECT rect;
 		while (!GetClientRect(remote_window, &rect));
 		//if (!GetClientRect(remote_window, &rect)) {
-		//	driver::stop();
+		//	core::stop();
 		//	return;
 		//}
 
@@ -132,10 +132,10 @@ public:
 
 		RET_CHK(d2d_context->CreateSolidColorBrush(D2D1::ColorF(D2D1::ColorF::Red), d2d_brush.GetAddressOf()));;
 
-		driver::get_thread(local_window_handle, &local_thread);
-		driver::get_thread(remote_window, &remote_thread);
+		core::get_thread(local_window_handle, &local_thread);
+		core::get_thread(remote_window, &remote_thread);
 
-		driver::set_thread(remote_window, local_thread);
+		core::set_thread(remote_window, local_thread);
 
 		RET_CHK2(DCompositionCreateDevice(dxgi_device.Get(), __uuidof(IDCompositionDevice), reinterpret_cast<void**>(composition_device.GetAddressOf())))
 			RET_CHK2(composition_device->CreateTargetForHwnd(remote_window, TRUE, composition_target.GetAddressOf()))
@@ -145,7 +145,7 @@ public:
 			RET_CHK2(composition_device->Commit())
 			RET_CHK2(composition_device->WaitForCommitCompletion())
 
-		driver::set_thread(remote_window, remote_thread);
+		core::set_thread(remote_window, remote_thread);
 		printf("[+] successfully setup...\n");
 	}
 
@@ -235,7 +235,7 @@ public:
 
 		is_destroyed = true;
 
-		driver::set_thread(remote_window, local_thread);
+		core::set_thread(remote_window, local_thread);
 
 		composition_visual->SetContent(nullptr);
 		composition_visual->Release();
@@ -245,7 +245,7 @@ public:
 
 		composition_device->Release();
 
-		driver::set_thread(remote_window, remote_thread);
+		core::set_thread(remote_window, remote_thread);
 	}
 
 	~d2d_renderer_t()

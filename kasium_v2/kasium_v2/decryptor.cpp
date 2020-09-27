@@ -63,7 +63,7 @@ namespace decryptor {
 
 	__forceinline uint64_t read_uworld(uint64_t main_base)
 	{
-		uint64_t key = driver::read<uint64_t>(globals::t_proc_id, pkey/*main_base + DECRYPTOR_O_KEY*/);
+		uint64_t key = core::read<uint64_t>(globals::t_proc_id, pkey/*main_base + DECRYPTOR_O_KEY*/);
 		if (!key) { return 0; }
 
 #pragma pack(push, 1)
@@ -73,7 +73,7 @@ namespace decryptor {
 		};
 #pragma pack(pop)
 		State state = { 0 };
-		state = driver::read<State>(globals::t_proc_id, pstate/*main_base + DECRYPTOR_O_STATE*/);
+		state = core::read<State>(globals::t_proc_id, pstate/*main_base + DECRYPTOR_O_STATE*/);
 
 		uintptr_t decrypt = decrypt_uworld(key, (const uint64_t*)& state);
 		return decrypt;

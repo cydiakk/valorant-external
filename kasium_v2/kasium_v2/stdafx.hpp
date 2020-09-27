@@ -1,5 +1,7 @@
 #pragma once
 
+#define _CRT_SECURE_NO_WARNINGS
+
 #include <Windows.h>
 #include <iostream>
 #include <chrono>
@@ -19,7 +21,7 @@
 #include <vector>
 
 //krnl internface
-#include "krnl.hpp"
+#include "core.h"
 
 //utilities
 #include "utils.hpp"

@@ -78,7 +78,7 @@ namespace magic {
 	}
 
 	uint64_t find_hidden_module() {
-		uint64_t base = driver::get_process_base_by_id(globals::t_proc_id);
+		uint64_t base = core::get_process_base_by_id(globals::t_proc_id);
 		printf("base: %p\n", base);
 
 		DWORD valorant_pid = (DWORD)globals::t_proc_id;
@@ -88,8 +88,8 @@ namespace magic {
 			return VirtualQueryEx(process, reinterpret_cast<void*>(address), (PMEMORY_BASIC_INFORMATION)buffer, sizeof(MEMORY_BASIC_INFORMATION));
 		};
 
-		IMAGE_DOS_HEADER dos = driver::read<IMAGE_DOS_HEADER>(globals::t_proc_id, base);
-		IMAGE_NT_HEADERS nt = driver::read<IMAGE_NT_HEADERS>(globals::t_proc_id, base + dos.e_lfanew);
+		IMAGE_DOS_HEADER dos = core::read<IMAGE_DOS_HEADER>(globals::t_proc_id, base);
+		IMAGE_NT_HEADERS nt = core::read<IMAGE_NT_HEADERS>(globals::t_proc_id, base + dos.e_lfanew);
 
 		SYSTEM_INFO sys_info = { 0 };
 		GetSystemInfo(&sys_info);
@@ -110,17 +110,17 @@ namespace magic {
 					for (int i = 0; i < std::clamp(mem_info.RegionSize / PAGE_SIZE, 0ull, 1000ull); i++) {
 						char output[2] = {};
 
-						driver::virtual_protect(globals::t_proc_id, region_base, PAGE_READWRITE, sizeof(output));
-						driver::copy_memory(globals::t_proc_id, region_base, GetCurrentProcessId(), (uintptr_t)output, sizeof(output));
+						core::virtual_protect(globals::t_proc_id, region_base, PAGE_READWRITE, sizeof(output));
+						core::mem_cpy(globals::t_proc_id, region_base, GetCurrentProcessId(), (uintptr_t)output, sizeof(output));
 
 						if (!memcmp(reinterpret_cast<void*>(output), "MZ", sizeof(output))) {
 							IMAGE_DOS_HEADER dos_ = {};
 							IMAGE_NT_HEADERS nt_ = {};
 
-							driver::virtual_protect(globals::t_proc_id, region_base, PAGE_READWRITE, sizeof(dos));
-							dos_ = driver::read<IMAGE_DOS_HEADER>(globals::t_proc_id, region_base, sizeof(dos));
-							driver::virtual_protect(globals::t_proc_id, region_base + dos.e_lfanew, PAGE_READWRITE, sizeof(nt));
-							nt_ = driver::read<IMAGE_NT_HEADERS>(globals::t_proc_id, region_base + dos.e_lfanew, sizeof(nt));
+							core::virtual_protect(globals::t_proc_id, region_base, PAGE_READWRITE, sizeof(dos));
+							dos_ = core::read<IMAGE_DOS_HEADER>(globals::t_proc_id, region_base, sizeof(dos));
+							core::virtual_protect(globals::t_proc_id, region_base + dos.e_lfanew, PAGE_READWRITE, sizeof(nt));
+							nt_ = core::read<IMAGE_NT_HEADERS>(globals::t_proc_id, region_base + dos.e_lfanew, sizeof(nt));
 
 							bool is_exe = nt.FileHeader.Characteristics & ~(IMAGE_FILE_DLL | IMAGE_FILE_SYSTEM);
 							if (dos.e_magic == IMAGE_DOS_SIGNATURE && nt.Signature == IMAGE_NT_SIGNATURE && is_exe && nt.OptionalHeader.CheckSum == nt_.OptionalHeader.CheckSum && region_base != base) {
@@ -152,14 +152,14 @@ namespace magic {
 		uint64_t base = hidden_module;
 		DWORD valorant_pid = (DWORD)globals::t_proc_id;
 
-		IMAGE_DOS_HEADER dos = driver::read<IMAGE_DOS_HEADER>(globals::t_proc_id, base);
-		IMAGE_NT_HEADERS nt = driver::read<IMAGE_NT_HEADERS>(globals::t_proc_id, base + dos.e_lfanew);
+		IMAGE_DOS_HEADER dos = core::read<IMAGE_DOS_HEADER>(globals::t_proc_id, base);
+		IMAGE_NT_HEADERS nt = core::read<IMAGE_NT_HEADERS>(globals::t_proc_id, base + dos.e_lfanew);
 
 		//really really really ghetto
 		uintptr_t code_start = base + 0x1000;
 
 		void* codebuffer = malloc((size_t)(nt.OptionalHeader.SizeOfCode));
-		driver::copy_memory(globals::t_proc_id, code_start, GetCurrentProcessId(), (uintptr_t)codebuffer, nt.OptionalHeader.SizeOfCode);
+		core::mem_cpy(globals::t_proc_id, code_start, GetCurrentProcessId(), (uintptr_t)codebuffer, nt.OptionalHeader.SizeOfCode);
 
 		uintptr_t virtual_read_proxy = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x48\x8B\x00\xC3\x33", (char*)"xxxxx");
 		if (!virtual_read_proxy) { return false; }
@@ -173,19 +173,19 @@ namespace magic {
 		if(!virtual_hk_function) { return false; }
 
 		//calculate original function / datahk offset
-		uint32_t o_datahk = driver::read<uint32_t>(globals::t_proc_id, globals::t_process_base + 0x1000 + (virtual_hk_function - (uintptr_t)codebuffer) + 0x3);
+		uint32_t o_datahk = core::read<uint32_t>(globals::t_proc_id, globals::t_process_base + 0x1000 + (virtual_hk_function - (uintptr_t)codebuffer) + 0x3);
 
 		//function ptr in memory we hook
 		magic_o_datahk = 0x1000 + (virtual_hk_function - (uintptr_t)codebuffer) + o_datahk + 0x7;
 
 		//the original function we hooked
-		magic_original_func = driver::read<uint64_t>(globals::t_proc_id, globals::t_process_base + magic_o_datahk);
+		magic_original_func = core::read<uint64_t>(globals::t_proc_id, globals::t_process_base + magic_o_datahk);
 
 		uintptr_t uworld_decrypt = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x44\x8B\x35\x00\x00\x00\x00\x41\x8B\xF6\x45\x8B\xCE", (char*)"xxx????xxxxxx");
 		if (!uworld_decrypt) { return false; }
 
 		uintptr_t real_decrypt = globals::t_process_base + 0x1000 + (uworld_decrypt - (uintptr_t)codebuffer);
-		uint32_t data_offset = driver::read<uint32_t>(globals::t_proc_id, real_decrypt + 0x3);
+		uint32_t data_offset = core::read<uint32_t>(globals::t_proc_id, real_decrypt + 0x3);
 
 		//uworld decryption key (routine itself mostly doesnt change)
 		worldcrypt_key = real_decrypt + data_offset + 0x7;
@@ -221,36 +221,29 @@ namespace magic {
 	}
 
 	bool write_shell(uint64_t decrypted_world, uint64_t base, uintptr_t& pentitycache, uintptr_t& plocalproxy) {
-		//find a place to write the results
-		//presults = scan::scan_rw_memory(globals::t_proc_id, 
-		//	(char*)"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00", 
-		//	(char*)"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx");
-
-		//if (!presults) { printf("failed to find position for results"); return false; }
-		//presults += 0x16;
-		//plocalproxy = presults;
-
-		presults = driver::virtual_alloc(globals::t_proc_id, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE, 0x100);
-		if (!presults) { printf("failed to find position for results"); return false; }
+		//allocate memory to write hijackstate
+		presults = core::virtual_alloc(globals::t_proc_id, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE, 0x100);
+		if (!presults) { printf(_xor_("failed to find position for results").c_str()); return false; }
 		plocalproxy = presults;
 
-		printf("[dbg] address to write results: 0x%p\n", presults);
+		printf(_xor_("[dbg] address to write results: 0x%p\n").c_str(), presults);
 
 		//find codecave
 		uint32_t size = 0;
-		uintptr_t pdbghelp = driver::get_um_module(globals::t_proc_id, "dbghelp.dll", size);
+		uintptr_t pdbghelp = 0;
+		core::get_um_module(globals::t_proc_id, "dbghelp.dll", pdbghelp, size);
 		if (!pdbghelp) { printf(" Failed to find codecave!\n"); return false; }
 
 		uintptr_t pcodecave = pdbghelp + MAGIC_O_CODECAVE + 0x14;
-		uintptr_t validate = driver::read<uintptr_t>(globals::t_proc_id, pcodecave);
+		uintptr_t validate = core::read<uintptr_t>(globals::t_proc_id, pcodecave);
 		if (validate != 0) {
 			MessageBoxA(nullptr, "MAGIC ERROR :-(", "ERROR", 0);
 			return false;
 		}
 
-		if (!utils::is_valid_addr(pcodecave)) { printf("[dbg] no codecave was found :-(: 0x%p\n", pcodecave); return false;  }
+		if (!utils::is_valid_addr(pcodecave)) { printf(_xor_("[dbg] no codecave was found :-(: 0x%p\n").c_str(), pcodecave); return false;  }
 
-		uintptr_t _pentitycache = driver::virtual_alloc(globals::t_proc_id, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE, 0xfffff);
+		uintptr_t _pentitycache = core::virtual_alloc(globals::t_proc_id, MEM_COMMIT | MEM_RESERVE, PAGE_READWRITE, 0xfffff);
 		if(!_pentitycache){ printf("Failed to alloc entitycache!\n"); return false; }
 
 		pentitycache = _pentitycache;
@@ -261,17 +254,17 @@ namespace magic {
 		update_shell(decrypted_world, pcodecave, base, _pentitycache);
 
 		//write shellcode to readonly
-		if (!driver::write_to_readonly<void>(globals::t_proc_id, (uintptr_t)magic, pcodecave, sizeof(magic))) { return false; }
+		if (!core::write_to_readonly<void>(globals::t_proc_id, (uintptr_t)magic, pcodecave, sizeof(magic))) { return false; }
 
 		//system("pause");
 
 		//place .data hook
-		driver::write<uintptr_t>(globals::t_proc_id, (uintptr_t)&pcodecave, base + magic_o_datahk/*MAGIC_O_DATAHK*/, sizeof(uintptr_t));
+		core::write<uintptr_t>(globals::t_proc_id, (uintptr_t)&pcodecave, base + magic_o_datahk/*MAGIC_O_DATAHK*/, sizeof(uintptr_t));
 	}
 
 	HijackState read_results() {
 		HijackState state = { 0 };
-		state = driver::read<HijackState>(globals::t_proc_id, presults);
+		state = core::read<HijackState>(globals::t_proc_id, presults);
 		return state;
 	}
 }

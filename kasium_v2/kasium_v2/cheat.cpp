@@ -29,8 +29,7 @@ namespace cheat {
 				magic::write_shell(decrypted_world, globals::t_process_base, pentitycache, plocalproxy);
 			}
 			else {
-				MessageBoxA(nullptr, "AutoUpdate ERROR!", "ERROR", NULL);
-				driver::stop();
+				MessageBoxA(nullptr, _xor_("AutoUpdate ERROR!").c_str(), "ERROR", NULL);
 				exit(0);
 			}
 		}
@@ -47,74 +46,74 @@ namespace cheat {
 		if (!utils::is_valid_addr(cache::actors)) { return false; }
 		localPlayer.get_localplayer(state/*cache::gameinstance*/);
 
-//#ifdef DEBUG_PRINT
-//		std::cout << "[general info]" << std::endl;
-//		std::cout << "	-	decrypted uworld: 0x" << std::hex << decrypted_world << std::endl;
-//		std::cout << "	-	pactors: 0x" << std::hex << state.Actors.Ptr << std::endl;
-//		std::cout << "	-	actors_size: 0x" << state.Actors.Size << std::endl;
-//
-//		std::cout << "	[camera information]" << std::endl;
-//		printf("		camera_position.x : %.2f\n", state.Position.x);
-//		printf("		camera_position.y : %.2f\n", state.Position.y);
-//		printf("		camera_position.z : %.2f\n", state.Position.z);
-//		printf(" camera fov: %.2f\n", state.fov);
-//		printf("------------------------\n");
-//		printf("		camera_rotation.x : %.2f\n", state.Rotation.x);
-//		printf("		camera_rotation.y : %.2f\n", state.Rotation.y);
-//		printf("		camera_rotation.z : %.2f\n", state.Rotation.z);
-//		printf("------------------------\n");
-//		printf("		ControlRotation.x : %.2f\n", state.ControlRotation.x);
-//		printf("		ControlRotation.y : %.2f\n", state.ControlRotation.y);
-//		printf("		ControlRotation.z : %.2f\n", state.ControlRotation.z);
-//		printf("------------------------\n");
-//#endif // DEBUG_PRINT
+#ifdef DEBUG_PRINT
+		std::cout << "[general info]" << std::endl;
+		std::cout << "	-	decrypted uworld: 0x" << std::hex << decrypted_world << std::endl;
+		std::cout << "	-	pactors: 0x" << std::hex << state.Actors.Ptr << std::endl;
+		std::cout << "	-	actors_size: 0x" << state.Actors.Size << std::endl;
+
+		std::cout << "	[camera information]" << std::endl;
+		printf("		camera_position.x : %.2f\n", state.Position.x);
+		printf("		camera_position.y : %.2f\n", state.Position.y);
+		printf("		camera_position.z : %.2f\n", state.Position.z);
+		printf(" camera fov: %.2f\n", state.fov);
+		printf("------------------------\n");
+		printf("		camera_rotation.x : %.2f\n", state.Rotation.x);
+		printf("		camera_rotation.y : %.2f\n", state.Rotation.y);
+		printf("		camera_rotation.z : %.2f\n", state.Rotation.z);
+		printf("------------------------\n");
+		printf("		ControlRotation.x : %.2f\n", state.ControlRotation.x);
+		printf("		ControlRotation.y : %.2f\n", state.ControlRotation.y);
+		printf("		ControlRotation.z : %.2f\n", state.ControlRotation.z);
+		printf("------------------------\n");
+#endif // DEBUG_PRINT
 
 		//copy all entities at once
-		driver::copy_memory(globals::t_proc_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
-		//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		core::mem_cpy(globals::t_proc_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
 			entityCache cached = entities[i];
-			//entityCache cached = driver::read<entityCache>(globals::t_proc_id, pentitycache + i * 0x30);
+			//entityCache cached = core::read<entityCache>(globals::t_proc_id, pentitycache + i * 0x30);
 			TslEntity tslEntity{};
 			if (!tslEntity.get_info(cached)) {
-//#ifdef DEBUG_PRINT
-//				if (tslEntity.num_bones > 95 && tslEntity.num_bones < 105) {
-//					SetConsoleTextAttribute(hConsole, 2);
-//					std::cout << " [actor NOT pushed]" << std::endl;
-//					std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
-//					std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
-//					std::cout << "		[ptr]" << std::endl;
-//					std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
-//					std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
-//					std::cout << "			- num_bones: " << tslEntity.num_bones << std::endl;
-//					std::cout << "			- root_comp: " << tslEntity.root_comp << std::endl;
-//					std::cout << "			- dbg_ctrl: " << tslEntity.damage_ctrl << std::endl;
-//					std::cout << "			- health: " << tslEntity.health << std::endl;
-//					std::cout << "<<<------------------------------------------------>>>" << std::endl;
-//					SetConsoleTextAttribute(hConsole, 15);
-//				}
-//#endif
+#ifdef DEBUG_PRINT
+				if (tslEntity.num_bones > 95 && tslEntity.num_bones < 105) {
+					SetConsoleTextAttribute(hConsole, 2);
+					std::cout << " [actor NOT pushed]" << std::endl;
+					std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
+					std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
+					std::cout << "		[ptr]" << std::endl;
+					std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
+					std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
+					std::cout << "			- num_bones: " << tslEntity.num_bones << std::endl;
+					std::cout << "			- root_comp: " << tslEntity.root_comp << std::endl;
+					std::cout << "			- dbg_ctrl: " << tslEntity.damage_ctrl << std::endl;
+					std::cout << "			- health: " << tslEntity.health << std::endl;
+					std::cout << "<<<------------------------------------------------>>>" << std::endl;
+					SetConsoleTextAttribute(hConsole, 15);
+				}
+#endif
 				continue;
 			}
 			else {
-//#ifdef DEBUG_PRINT
-//				SetConsoleTextAttribute(hConsole, 12);
-//				std::cout << " [actor pushed]" << std::endl;
-//				std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
-//				std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
-//				std::cout << "		- head_pos_2d: x: " << tslEntity.head_position_2d.x << "		y: " << tslEntity.head_position_2d.y << std::endl;
-//				std::cout << "		- root_pos_2d: x: " << tslEntity.root_position_2d.x << "		y: " << tslEntity.root_position_2d.y << std::endl;
-//				std::cout << "		[ptr]" << std::endl;
-//				std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
-//				std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
-//				std::cout << "			- num_bones: " << tslEntity.num_bones << std::endl;
-//				std::cout << "			- root_comp: " << tslEntity.root_comp << std::endl;
-//				std::cout << "			- dbg_ctrl: " << tslEntity.damage_ctrl << std::endl;
-//				std::cout << "			- health: " << tslEntity.health << std::endl;
-//				std::cout << "<<<------------------------------------------------>>>" << std::endl;
-//				SetConsoleTextAttribute(hConsole, 15);
-//#endif
+#ifdef DEBUG_PRINT
+				SetConsoleTextAttribute(hConsole, 12);
+				std::cout << " [actor pushed]" << std::endl;
+				std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
+				std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
+				std::cout << "		- head_pos_2d: x: " << tslEntity.head_position_2d.x << "		y: " << tslEntity.head_position_2d.y << std::endl;
+				std::cout << "		- root_pos_2d: x: " << tslEntity.root_position_2d.x << "		y: " << tslEntity.root_position_2d.y << std::endl;
+				std::cout << "		[ptr]" << std::endl;
+				std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
+				std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
+				std::cout << "			- num_bones: " << tslEntity.num_bones << std::endl;
+				std::cout << "			- root_comp: " << tslEntity.root_comp << std::endl;
+				std::cout << "			- dbg_ctrl: " << tslEntity.damage_ctrl << std::endl;
+				std::cout << "			- health: " << tslEntity.health << std::endl;
+				std::cout << "<<<------------------------------------------------>>>" << std::endl;
+				SetConsoleTextAttribute(hConsole, 15);
+#endif
 				tmpList.push_back(tslEntity);
 			}
 		}
@@ -280,26 +279,25 @@ namespace cheat {
 			}
 		}
 
-
 		if (settings::aimbot::master && GetAsyncKeyState(settings::aimbot::aimkey) & 0x8000 && closes_entity.mesh) {
 			uint32_t on = 0x1111;
 			//do aimbot
 			if (utils::is_valid_addr(plocalproxy)) { 
 				aimbot::aimbot(closes_entity, plocalproxy);
-				driver::write<uint32_t>(globals::t_proc_id, (uintptr_t)& on, plocalproxy + 0x48, sizeof(uint32_t));
+				core::write<uint32_t>(globals::t_proc_id, (uintptr_t)& on, plocalproxy + 0x48, sizeof(uint32_t));
 			}
 		}
 		else {
 			uint32_t off = 0x0;
-			driver::write<uint32_t>(globals::t_proc_id, (uintptr_t)& off, plocalproxy + 0x48, sizeof(uint32_t));
+			core::write<uint32_t>(globals::t_proc_id, (uintptr_t)& off, plocalproxy + 0x48, sizeof(uint32_t));
 		}
 	}
 	
 	bool cheat_loop() {
-		driver::init();
+		core::core_init();
 
 		while(!utils::is_valid_addr(globals::t_process_base))
-			globals::t_process_base = driver::get_process_base_by_id(globals::t_proc_id);
+			globals::t_process_base = core::get_process_base_by_id(globals::t_proc_id);
 
 		printf(_xor_("[+] id: %d\n").c_str(), globals::t_proc_id);
 		printf(_xor_("[+] base:  0x%p\n").c_str(), globals::t_process_base);
@@ -354,6 +352,5 @@ namespace cheat {
 				counter = 0;
 			}
 		}
-		driver::stop();
 	}
 }

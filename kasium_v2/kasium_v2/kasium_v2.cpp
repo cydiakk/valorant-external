@@ -1,6 +1,6 @@
 #include "stdafx.hpp"
 
-int kasium()
+int main()
 {
 	printf(_xor_("\n\n").c_str());
 	printf(_xor_("[*] ... start VALORANT!\n").c_str());

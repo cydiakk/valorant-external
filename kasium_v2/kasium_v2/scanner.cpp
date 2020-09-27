@@ -27,7 +27,7 @@ namespace scan {
 						memset(dump, 0x00, mbi.RegionSize + 1);
 
 						//dump region
-						if (!driver::copy_memory(proc_id, (uint64_t)mbi.BaseAddress, GetCurrentProcessId(), (uint64_t)dump, mbi.RegionSize)) {
+						if (!core::mem_cpy(proc_id, (uint64_t)mbi.BaseAddress, GetCurrentProcessId(), (uint64_t)dump, mbi.RegionSize)) {
 							mem_region_start += mbi.RegionSize;
 							continue;
 						}
@@ -77,7 +77,7 @@ namespace scan {
 						memset(dump, 0x00, mbi.RegionSize + 1);
 
 						//dump region
-						if (!driver::copy_memory(proc_id, (uint64_t)mbi.BaseAddress, GetCurrentProcessId(), (uint64_t)dump, mbi.RegionSize)) {
+						if (!core::mem_cpy(proc_id, (uint64_t)mbi.BaseAddress, GetCurrentProcessId(), (uint64_t)dump, mbi.RegionSize)) {
 							mem_region_start += mbi.RegionSize;
 							continue;
 						}

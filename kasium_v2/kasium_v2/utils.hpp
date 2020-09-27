@@ -12,5 +12,7 @@ namespace utils {
 	uint64_t get_threadstack_address(uint32_t process_id, std::list<uint32_t>& thread_ids);
 	bool IsBitSet(byte b, int pos);
 
+	wchar_t* getwc(const char* c);
+
 	void parse_config();
 }

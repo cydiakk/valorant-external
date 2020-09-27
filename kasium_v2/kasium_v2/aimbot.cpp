@@ -48,7 +48,7 @@ namespace aimbot {
 		ConvertRotation.Normalize();
 
 		// Calculate recoil/aimpunch
-		auto ControlRotation = driver::read<Vector3>(globals::t_proc_id, controlrotation);
+		auto ControlRotation = core::read<Vector3>(globals::t_proc_id, controlrotation);
 		Vector3 DeltaRotation = ConvertRotation - ControlRotation;
 		DeltaRotation.Normalize();
 
@@ -67,7 +67,7 @@ namespace aimbot {
 		Smoothed.y -= DeltaRotation.y;
 		Smoothed.z -= DeltaRotation.z;
 
-		driver::write<Vector3>(globals::t_proc_id, (uintptr_t)& Smoothed, ctrlrotation_proxy, sizeof(Vector3));
+		core::write<Vector3>(globals::t_proc_id, (uintptr_t)& Smoothed, ctrlrotation_proxy, sizeof(Vector3));
 	}
 
 	void aimbot(cheat::TslEntity entity, uintptr_t plocalproxy) {
@@ -81,7 +81,7 @@ namespace aimbot {
 		int bone = 8;
 
 		Vector3 target = entity.head_position;/*engine::GetBoneWithRotation(entity.mesh, bone);*/
-		Vector3 ctr_rot = driver::read<Vector3>(globals::t_proc_id, controlrotation);
+		Vector3 ctr_rot = core::read<Vector3>(globals::t_proc_id, controlrotation);
 		Vector3 delta = Vector3((cheat::localPlayer.camera_position.x - target.x), (cheat::localPlayer.camera_position.y - target.y), (cheat::localPlayer.camera_position.z - target.z));
 
 		float hyp = sqrtf(delta.x * delta.x + delta.y * delta.y + delta.z * delta.z);
@@ -112,7 +112,7 @@ namespace aimbot {
 			}
 			else {
 				Vector3 smoothed = smooth_aim(cheat::localPlayer.camera_rotation, out, settings::aimbot::smooth);
-				driver::write<Vector3>(globals::t_proc_id, (uintptr_t)& smoothed, ctrlrotation_proxy, sizeof(Vector3));
+				core::write<Vector3>(globals::t_proc_id, (uintptr_t)& smoothed, ctrlrotation_proxy, sizeof(Vector3));
 			}
 		}
 	}

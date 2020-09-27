@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -160,11 +160,11 @@
   <ItemGroup>
     <ClCompile Include="aimbot.cpp" />
     <ClCompile Include="cheat.cpp" />
+    <ClCompile Include="core.cpp" />
     <ClCompile Include="decryptor.cpp" />
     <ClCompile Include="definitions.cpp" />
     <ClCompile Include="engine.cpp" />
     <ClCompile Include="kasium_v2.cpp" />
-    <ClCompile Include="krnl.cpp" />
     <ClCompile Include="magic.cpp" />
     <ClCompile Include="menu.cpp" />
     <ClCompile Include="scanner.cpp" />
@@ -176,6 +176,7 @@
     <ClInclude Include="cheat.hpp" />
     <ClInclude Include="cli.hpp" />
     <ClInclude Include="comp_render.hpp" />
+    <ClInclude Include="core.h" />
     <ClInclude Include="D3DMenuInputItem.hpp" />
     <ClInclude Include="decryptor.hpp" />
     <ClInclude Include="definitions.hpp" />
@@ -187,8 +188,6 @@
     <ClInclude Include="items\D3DMenuIntItem.hpp" />
     <ClInclude Include="items\D3DMenuSubFolderItem.hpp" />
     <ClInclude Include="items\ID3DMenuItem.hpp" />
-    <ClInclude Include="krnl.hpp" />
-    <ClInclude Include="krnl_defs.hpp" />
     <ClInclude Include="magic.hpp" />
     <ClInclude Include="menu.hpp" />
     <ClInclude Include="scanner.hpp" />
