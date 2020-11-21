@@ -9,6 +9,7 @@
 
 #include "cli.hpp"
 #include "core.h"
+#include "xorstr.hpp"
 
 #pragma comment( lib, "dxgi" )
 #pragma comment( lib, "d2d1" )
@@ -46,13 +47,12 @@ public:
 			nullptr,
 			nullptr,
 			nullptr,
-			_name.c_str()
+			"_DWMTestCom"
 		};
 
 		RegisterClassA(&window_class);
 
-		_handle = CreateWindowExA(0, _name.c_str(), "", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, window_class.hInstance, nullptr);
-
+		_handle = CreateWindowExA(0, /*_name.c_str()*/"_DWMTestCom", "", WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, CW_USEDEFAULT, nullptr, nullptr, window_class.hInstance, nullptr);
 	}
 
 	~d2d_window_t()
@@ -93,10 +93,6 @@ public:
 
 		RECT rect;
 		while (!GetClientRect(remote_window, &rect));
-		//if (!GetClientRect(remote_window, &rect)) {
-		//	core::stop();
-		//	return;
-		//}
 
 		// fucking compiler warnings
 		description.Width = static_cast<UINT>(rect.right - rect.left);

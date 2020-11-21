@@ -37,87 +37,29 @@ namespace cheat {
 
 		state = magic::read_results();
 
-		cache::actors = state.Actors.Ptr;
-		cache::actor_count = state.Actors.Size;
+		cache::actors = state.actors.Ptr;
+		cache::actor_count = state.actors.Size;
 		//end magic
 
 		if (cache::actor_count > 0x800) { return false; }
 
 		if (!utils::is_valid_addr(cache::actors)) { return false; }
-		localPlayer.get_localplayer(state/*cache::gameinstance*/);
-
-#ifdef DEBUG_PRINT
-		std::cout << "[general info]" << std::endl;
-		std::cout << "	-	decrypted uworld: 0x" << std::hex << decrypted_world << std::endl;
-		std::cout << "	-	pactors: 0x" << std::hex << state.Actors.Ptr << std::endl;
-		std::cout << "	-	actors_size: 0x" << state.Actors.Size << std::endl;
-
-		std::cout << "	[camera information]" << std::endl;
-		printf("		camera_position.x : %.2f\n", state.Position.x);
-		printf("		camera_position.y : %.2f\n", state.Position.y);
-		printf("		camera_position.z : %.2f\n", state.Position.z);
-		printf(" camera fov: %.2f\n", state.fov);
-		printf("------------------------\n");
-		printf("		camera_rotation.x : %.2f\n", state.Rotation.x);
-		printf("		camera_rotation.y : %.2f\n", state.Rotation.y);
-		printf("		camera_rotation.z : %.2f\n", state.Rotation.z);
-		printf("------------------------\n");
-		printf("		ControlRotation.x : %.2f\n", state.ControlRotation.x);
-		printf("		ControlRotation.y : %.2f\n", state.ControlRotation.y);
-		printf("		ControlRotation.z : %.2f\n", state.ControlRotation.z);
-		printf("------------------------\n");
-#endif // DEBUG_PRINT
+		localPlayer.get_localplayer(state);
 
 		//copy all entities at once
 		core::mem_cpy(globals::t_proc_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
-		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
 
+		TslEntity tslEntity{};
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
 			entityCache cached = entities[i];
-			//entityCache cached = core::read<entityCache>(globals::t_proc_id, pentitycache + i * 0x30);
-			TslEntity tslEntity{};
+
 			if (!tslEntity.get_info(cached)) {
-#ifdef DEBUG_PRINT
-				if (tslEntity.num_bones > 95 && tslEntity.num_bones < 105) {
-					SetConsoleTextAttribute(hConsole, 2);
-					std::cout << " [actor NOT pushed]" << std::endl;
-					std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
-					std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
-					std::cout << "		[ptr]" << std::endl;
-					std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
-					std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
-					std::cout << "			- num_bones: " << tslEntity.num_bones << std::endl;
-					std::cout << "			- root_comp: " << tslEntity.root_comp << std::endl;
-					std::cout << "			- dbg_ctrl: " << tslEntity.damage_ctrl << std::endl;
-					std::cout << "			- health: " << tslEntity.health << std::endl;
-					std::cout << "<<<------------------------------------------------>>>" << std::endl;
-					SetConsoleTextAttribute(hConsole, 15);
-				}
-#endif
 				continue;
 			}
 			else {
-#ifdef DEBUG_PRINT
-				SetConsoleTextAttribute(hConsole, 12);
-				std::cout << " [actor pushed]" << std::endl;
-				std::cout << "		- root_position: x: " << tslEntity.root_position.x << "		y: " << tslEntity.root_position.y << "	z: " << tslEntity.root_position.z << std::endl;
-				std::cout << "		- head_position: x: " << tslEntity.head_position.x << "		y: " << tslEntity.head_position.y << "	z: " << tslEntity.head_position.z << std::endl;
-				std::cout << "		- head_pos_2d: x: " << tslEntity.head_position_2d.x << "		y: " << tslEntity.head_position_2d.y << std::endl;
-				std::cout << "		- root_pos_2d: x: " << tslEntity.root_position_2d.x << "		y: " << tslEntity.root_position_2d.y << std::endl;
-				std::cout << "		[ptr]" << std::endl;
-				std::cout << "			- mesh: " << tslEntity.mesh << std::endl;
-				std::cout << "			- skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
-				std::cout << "			- num_bones: " << tslEntity.num_bones << std::endl;
-				std::cout << "			- root_comp: " << tslEntity.root_comp << std::endl;
-				std::cout << "			- dbg_ctrl: " << tslEntity.damage_ctrl << std::endl;
-				std::cout << "			- health: " << tslEntity.health << std::endl;
-				std::cout << "<<<------------------------------------------------>>>" << std::endl;
-				SetConsoleTextAttribute(hConsole, 15);
-#endif
 				tmpList.push_back(tslEntity);
 			}
 		}
-
 		entityList = tmpList;
 		return true;
 	}
@@ -127,6 +69,11 @@ namespace cheat {
 
 		Vector3 neckpos = engine::GetBoneWithRotation(entity.mesh, engine::e_male_bones::Spine4);
 		Vector3 pelvispos = engine::GetBoneWithRotation(entity.mesh, 72);
+
+		// draw head bone
+		Vector3 headpos = engine::GetBoneWithRotation(entity.mesh, 8);
+		Vector3 headpos2d = engine::WorldToScreen(headpos, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
+		renderer.draw_circle(headpos2d.x, headpos2d.y, (4500 / localPlayer.camera_position.Distance(headpos)) * 2.5, 2, D2D1::ColorF::WhiteSmoke, false);
 
 		Vector3 previous(0, 0, 0);
 		Vector3 current, p1, c1;
@@ -161,6 +108,8 @@ namespace cheat {
 		}
 
 		settings::is_ingame = true;
+
+		//settings::is_ingame = true;
 		auto entityListCpy = entityList;
 
 		float distance = 0.f;
@@ -182,8 +131,7 @@ namespace cheat {
 				continue;
 			}
 
-			if (current.num_bones < 95 || current.num_bones > 102) { continue; }
-
+			if (current.num_bones < 95 || current.num_bones > 103) { continue; }
 			{
 				Vector3 neckpos = engine::GetBoneWithRotation(current.mesh, engine::e_male_bones::Spine4);
 				Vector3 pelvispos = engine::GetBoneWithRotation(current.mesh, 72);
@@ -203,7 +151,7 @@ namespace cheat {
 
 			if (settings::esp::master) {
 				if (!settings::esp::hide_dormants) {
-					if (current.b_dormant && current.health > 1) {
+					if (current.b_dormant && current.health > 0) {
 						if (settings::esp::boxes)
 							renderer.draw_corner_box(current.head_position_2d.x - height / 4, current.head_position_2d.y - height / 6, height / 2, height, 2, D2D1::ColorF::Gray);
 
@@ -218,7 +166,7 @@ namespace cheat {
 					}
 				}
 
-				if (!current.b_dormant && current.health > 1) {
+				if (!current.b_dormant/* && current.health > 0*/) {
 					if (localPlayer.team == current.team) {
 						if (settings::esp::draw_team) {
 							if (settings::esp::health)
@@ -282,34 +230,31 @@ namespace cheat {
 		if (settings::aimbot::master && GetAsyncKeyState(settings::aimbot::aimkey) & 0x8000 && closes_entity.mesh) {
 			uint32_t on = 0x1111;
 			//do aimbot
-			if (utils::is_valid_addr(plocalproxy)) { 
+			if (utils::is_valid_addr(plocalproxy)) {
 				aimbot::aimbot(closes_entity, plocalproxy);
-				core::write<uint32_t>(globals::t_proc_id, (uintptr_t)& on, plocalproxy + 0x48, sizeof(uint32_t));
+				core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&on, plocalproxy + 0x48, sizeof(uint32_t));
 			}
 		}
 		else {
 			uint32_t off = 0x0;
-			core::write<uint32_t>(globals::t_proc_id, (uintptr_t)& off, plocalproxy + 0x48, sizeof(uint32_t));
+			core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&off, plocalproxy + 0x48, sizeof(uint32_t));
 		}
 	}
 	
-	bool cheat_loop() {
-		core::core_init();
-
+	void cheat_loop() {
 		while(!utils::is_valid_addr(globals::t_process_base))
 			globals::t_process_base = core::get_process_base_by_id(globals::t_proc_id);
 
 		printf(_xor_("[+] id: %d\n").c_str(), globals::t_proc_id);
 		printf(_xor_("[+] base:  0x%p\n").c_str(), globals::t_process_base);
 
-		d2d_window_t window;
+		d2d_window_t window { };
 		d2d_renderer_t renderer{ window._handle, globals::t_hwnd };
 		uint32_t counter = 0;
 
 #ifndef DEBUG_PRINT
 		ShowWindow(GetConsoleWindow(), SW_HIDE);
 #endif
-
 		while (true) {
 			static const auto center = wnd_hjk::vec2_t{ wnd_hjk::screen_resolution.first * 0.5f, wnd_hjk::screen_resolution.second * 0.5f };
 			globals::screen_width = wnd_hjk::screen_resolution.first;
@@ -343,8 +288,6 @@ namespace cheat {
 				Beep(100, 100);
 				break;
 			}
-
-			Sleep(1);
 
 			counter++;
 			if (counter >= 20) {

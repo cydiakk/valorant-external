@@ -21,32 +21,15 @@ namespace cheat {
 		Vector3		camera_rotation{};
 
 		void get_camera() {
-			//if (!this->camera_manager) { return; }
-
-			//this->camera_position = driver::read<Vector3>(globals::t_proc_id, this->camera_manager + offsets::ginstance::localplayer::camera_manager::camera_position);
-			//this->camera_rotation = driver::read<Vector3>(globals::t_proc_id, this->camera_manager + offsets::ginstance::localplayer::camera_manager::camera_rotation);
-			//this->fov = driver::read<float>(globals::t_proc_id, this->camera_manager + offsets::ginstance::localplayer::camera_manager::camera_fov);
 			magic::HijackState state = magic::read_results();
-			this->camera_position = state.Position;
-			this->camera_rotation = state.Rotation;
-			this->fov = state.fov;
+			this->camera_position = state.camera.position;
+			this->camera_rotation = state.camera.rotation;
+			this->fov = state.camera.fov;
 		}
 		
-		void get_localplayer(magic::HijackState &state/*uintptr_t gameinstance*/) {
-			//this->local_player_array = driver::read<uintptr_t>(globals::t_proc_id, gameinstance + offsets::ginstance::localplayer_array);
-			//this->local_player = driver::read<uintptr_t>(globals::t_proc_id, this->local_player_array);
-			//this->local_ctrl = driver::read<uintptr_t>(globals::t_proc_id, this->local_player + offsets::ginstance::localplayer::local_ctrl);
-			//this->local_pawn = driver::read<uintptr_t>(globals::t_proc_id, this->local_ctrl + offsets::ginstance::localplayer::local_pawn);
-			//
-			//if (!this->local_ctrl) { return; }
-
-			//this->camera_manager = driver::read<uintptr_t>(globals::t_proc_id, this->local_ctrl + offsets::ginstance::localplayer::l_camera_manager);
-
-			//this->player_state = driver::read<uintptr_t>(globals::t_proc_id, this->local_pawn + offsets::actor::a_playerstate);
-			//this->team = driver::read<int32_t>(globals::t_proc_id, driver::read<uint64_t>(globals::t_proc_id, this->player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
-
+		void get_localplayer(magic::HijackState &state) {
 			this->local_pawn = state.localpawn;
-			this->player_state = state.PlayerState;
+			this->player_state = state.playerstate;
 			this->team = core::read<int32_t>(globals::t_proc_id, core::read<uint64_t>(globals::t_proc_id, this->player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
 		}
 	};
@@ -56,12 +39,12 @@ namespace cheat {
 #pragma pack(push, 1)
 	struct entityCache {		// 0x30 bytes
 		uint32_t unique_id;		//4 bytes	
-		uint32_t bdormant;			//4 bytes
+		uint32_t bdormant;		//4 bytes
 		uint64_t playerstate;	//8 bytes
 		uint64_t mesh;			//8 bytes
 		uint64_t root_comp;		//8 bytes
 		uint64_t dmg_ctrl;		//8 bytes
-		uint64_t pobjptr;			//8 bytes
+		uint64_t pobjptr;		//8 bytes
 	};
 #pragma pack(pop)
 
@@ -88,6 +71,7 @@ namespace cheat {
 
 	private:
 		void get_team(uintptr_t player_state) {
+			if (!utils::is_valid_addr(player_state)) { return; }
 			this->player_state = player_state;
 			this->team = core::read<int32_t>(globals::t_proc_id, core::read<uint64_t>(globals::t_proc_id, player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
 		}
@@ -106,6 +90,7 @@ namespace cheat {
 
 		void get_root_position(uintptr_t root_comp) {
 			this->root_comp = root_comp;
+			this->root_position = core::read<Vector3>(globals::t_proc_id, this->root_comp + offsets::actor::root_pos);
 		}
 
 		void get_health(uintptr_t damage_ctrl) {
@@ -116,8 +101,14 @@ namespace cheat {
 				this->health = 100;
 		}
 
-		void get_2d_pos(uintptr_t mesh) {
-			this->head_position = engine::GetBoneWithRotation(mesh, engine::e_male_bones::Head);
+		void get_dormant(uint32_t bdormant) {
+			//get the first byte the 1337 ghetto way
+			this->b_dormant = (bool)(bdormant & ((1 << 8) - 1));
+		}
+
+public:
+		void get_2d_pos() {
+			this->head_position = engine::GetBoneWithRotation(this->mesh, engine::e_male_bones::Head);
 			this->root_position = core::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
 
 			//if (this->head_position.z > this->root_position.z) {
@@ -137,17 +128,11 @@ namespace cheat {
 			this->root_position_2d = engine::WorldToScreen(this->root_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
 		}
 
-		void get_dormant(uint32_t bdormant) {
-			//get the first byte the 1337 ghetto way
-			this->b_dormant = (bool)(bdormant & ((1 << 8) - 1));
-		}
-
-	public:
 		bool get_info(entityCache& cached) {
 			if (cached.unique_id != 0x100011e) { return false; }
 			this->unique_id = cached.unique_id;
 
-			if (!utils::is_valid_addr(cached.mesh) || !utils::is_valid_addr(cached.root_comp) || !utils::is_valid_addr(cached.dmg_ctrl) || !utils::is_valid_addr(cached.playerstate)) {
+			if (!utils::is_valid_addr(cached.mesh) || !utils::is_valid_addr(cached.root_comp) /*|| !utils::is_valid_addr(cached.dmg_ctrl)*//* || !utils::is_valid_addr(cached.playerstate)*/) {
 				return false;
 			}
 
@@ -159,7 +144,7 @@ namespace cheat {
 			this->get_visibility(cached.mesh);
 			this->get_root_position(cached.root_comp);
 
-			this->get_2d_pos(cached.mesh);
+			this->get_2d_pos();
 
 			this->get_health(cached.dmg_ctrl);
 			this->get_team(cached.playerstate);
@@ -170,5 +155,5 @@ namespace cheat {
 	};
 #endif
 
-	extern bool cheat_loop();
+	extern void cheat_loop();
 }

@@ -113,10 +113,10 @@ namespace engine {
 
 	FTransform GetBoneIndex(uintptr_t mesh, int index)
 	{
-		uintptr_t bonearray = core::read<uintptr_t>(globals::t_proc_id, mesh + 0x550);
+		uintptr_t bonearray = core::read<uintptr_t>(globals::t_proc_id, mesh + 0x560);
 
 		if (!utils::is_valid_addr(bonearray))
-			bonearray = core::read<uintptr_t>(globals::t_proc_id, mesh + 0x558);
+			bonearray = core::read<uintptr_t>(globals::t_proc_id, mesh + 0x550);
 
 		return core::read<FTransform>(globals::t_proc_id, bonearray + (index * 0x30));
 	}

@@ -35,7 +35,7 @@ namespace aimbot {
 		Vector3 diff = target - camera_rotation;
 		diff.Normalize();
 
-		diff.x = diff.x / smooth_factor;
+		diff.x = diff.x/* / smooth_factor*/;
 		diff.y = diff.y / smooth_factor;
 		diff.z = diff.z / smooth_factor;
 
@@ -67,20 +67,17 @@ namespace aimbot {
 		Smoothed.y -= DeltaRotation.y;
 		Smoothed.z -= DeltaRotation.z;
 
-		core::write<Vector3>(globals::t_proc_id, (uintptr_t)& Smoothed, ctrlrotation_proxy, sizeof(Vector3));
+		core::write<Vector3>(globals::t_proc_id, (uintptr_t)&Smoothed, ctrlrotation_proxy, sizeof(Vector3));
 	}
 
 	void aimbot(cheat::TslEntity entity, uintptr_t plocalproxy) {
 		uintptr_t controlrotation = plocalproxy + 0x30;
 		uintptr_t ctrlrotation_proxy = plocalproxy + 0x3C;
 
-		if (!settings::is_ingame)
-			return;
-
 		Vector3 out;
 		int bone = 8;
 
-		Vector3 target = entity.head_position;/*engine::GetBoneWithRotation(entity.mesh, bone);*/
+		Vector3 target = entity.head_position;
 		Vector3 ctr_rot = core::read<Vector3>(globals::t_proc_id, controlrotation);
 		Vector3 delta = Vector3((cheat::localPlayer.camera_position.x - target.x), (cheat::localPlayer.camera_position.y - target.y), (cheat::localPlayer.camera_position.z - target.z));
 
@@ -107,13 +104,13 @@ namespace aimbot {
 		out.y = Rotation.y;
 
 		if (cheat::localPlayer.player_state && settings::is_ingame) {
-			if (settings::aimbot::rcs) {
-				rcs(out, settings::aimbot::smooth, ctrlrotation_proxy, controlrotation);
-			}
-			else {
+			//if (settings::aimbot::rcs) {
+			//	rcs(out, settings::aimbot::smooth, ctrlrotation_proxy, controlrotation);
+			//}
+			//else {
 				Vector3 smoothed = smooth_aim(cheat::localPlayer.camera_rotation, out, settings::aimbot::smooth);
-				core::write<Vector3>(globals::t_proc_id, (uintptr_t)& smoothed, ctrlrotation_proxy, sizeof(Vector3));
-			}
+				core::write<Vector3>(globals::t_proc_id, (uintptr_t)&smoothed, ctrlrotation_proxy, sizeof(Vector3));
+			//}
 		}
 	}
 }

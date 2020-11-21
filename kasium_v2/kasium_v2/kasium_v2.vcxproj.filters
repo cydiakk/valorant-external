@@ -142,9 +142,6 @@
     <ClInclude Include="D3DMenuInputItem.hpp">
       <Filter>Quelldateien\menu\items</Filter>
     </ClInclude>
-    <ClInclude Include="xorstr.hpp">
-      <Filter>Quelldateien\crypt</Filter>
-    </ClInclude>
     <ClInclude Include="cheat.hpp">
       <Filter>Quelldateien\cheat</Filter>
     </ClInclude>
@@ -163,6 +160,9 @@
     </ClInclude>
     <ClInclude Include="core.h">
       <Filter>core_client</Filter>
+    </ClInclude>
+    <ClInclude Include="xorstr.hpp">
+      <Filter>Quelldateien\crypt</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

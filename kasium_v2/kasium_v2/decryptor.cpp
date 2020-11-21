@@ -1,8 +1,8 @@
 #include "stdafx.hpp"
 #include "idadefs.hpp"
 
-#define DECRYPTOR_O_KEY			0x6CD99F8
-#define DECRYPTOR_O_STATE		0x6CD99C0
+#define DECRYPTOR_O_KEY			0x6EE7778
+#define DECRYPTOR_O_STATE		0x6EE7740
 
 namespace decryptor {
 	uint64_t pkey = 0;

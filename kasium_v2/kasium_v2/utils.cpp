@@ -192,64 +192,96 @@ wchar_t* utils::getwc(const char* c)
 
 bool utils::IsBitSet(byte b, int pos) { return (b & (1 << pos)) != 0; }
 
+void utils::seprivilege()
+{
+	TOKEN_PRIVILEGES NewState;
+	LUID luid;
+	HANDLE hToken;
+
+	OpenProcessToken(GetCurrentProcess(), TOKEN_ADJUST_PRIVILEGES, &hToken);
+	LookupPrivilegeValue(NULL, SE_DEBUG_NAME, &luid);
+
+	NewState.PrivilegeCount = 1;
+	NewState.Privileges[0].Luid = luid;
+	NewState.Privileges[0].Attributes = SE_PRIVILEGE_ENABLED;
+
+	AdjustTokenPrivileges(hToken, FALSE, &NewState, sizeof(NewState), NULL, NULL);
+
+	CloseHandle(hToken);
+
+	if (GetLastError() == ERROR_NOT_ALL_ASSIGNED)
+	{
+		printf("Execute o programa como Administrador.");
+		Sleep(5000);
+		ExitProcess(0);
+	}
+}
+
 void utils::parse_config() {
 	std::ifstream cFile(_xor_("config.cfg").c_str());
 	if (cFile.is_open())
 	{
 		std::string line;
 		while (getline(cFile, line)) {
-			line.erase(std::remove_if(line.begin(), line.end(), isspace),
-				line.end());
-			if (line[0] == '#' || line.empty())
-				continue;
-			auto delimiterPos = line.find("=");
-			auto name = line.substr(0, delimiterPos);
-			auto value = line.substr(delimiterPos + 1);
+			try {
+				line.erase(std::remove_if(line.begin(), line.end(), isspace),
+					line.end());
+				if (line[0] == '#' || line.empty())
+					continue;
+				auto delimiterPos = line.find("=");
+				auto name = line.substr(0, delimiterPos);
+				auto value = line.substr(delimiterPos + 1);
 
 
-			//ESP
-			if (name == _xor_("bool::esp::master").c_str())
-				settings::esp::master = std::stoi(value);
-			if (name == _xor_("bool::esp::hide_dormants").c_str())
-				settings::esp::hide_dormants = std::stoi(value);
-			if (name == _xor_("bool::esp::team").c_str())
-				settings::esp::draw_team = std::stoi(value);
-			if (name == _xor_("bool::esp::box").c_str())
-				settings::esp::boxes = std::stoi(value);
-			if (name == _xor_("bool::esp::skeleton").c_str())
-				settings::esp::skeleton = std::stoi(value);
-			if (name == _xor_("bool::esp::laster").c_str())
-				settings::esp::laser = std::stoi(value);
-			if (name == _xor_("bool::esp::health").c_str())
-				settings::esp::health = std::stoi(value);
+				//ESP
+				if (name == _xor_("bool::esp::master").c_str())
+					settings::esp::master = std::stoi(value);
+				if (name == _xor_("bool::esp::hide_dormants").c_str())
+					settings::esp::hide_dormants = std::stoi(value);
+				if (name == _xor_("bool::esp::team").c_str())
+					settings::esp::draw_team = std::stoi(value);
+				if (name == _xor_("bool::esp::box").c_str())
+					settings::esp::boxes = std::stoi(value);
+				if (name == _xor_("bool::esp::skeleton").c_str())
+					settings::esp::skeleton = std::stoi(value);
+				if (name == _xor_("bool::esp::laster").c_str())
+					settings::esp::laser = std::stoi(value);
+				if (name == _xor_("bool::esp::health").c_str())
+					settings::esp::health = std::stoi(value);
 
-			//AIMBOT
-			if (name == _xor_("bool::aim::master").c_str())
-				settings::aimbot::master= std::stoi(value);
-			if (name == _xor_("hex::aim::key").c_str())
-				settings::aimbot::aimkey = std::stoi(value);
-			if (name == _xor_("dec::aim::fov").c_str())
-				settings::aimbot::fov = std::stoi(value);
-			if (name == _xor_("dec::aim::smooth").c_str()) {
-				if (std::stoi(value) < 8) {
-					settings::aimbot::smooth = 8.f;
+				//AIMBOT
+				if (name == _xor_("bool::aim::master").c_str())
+					settings::aimbot::master = std::stoi(value);
+				if (name == _xor_("hex::aim::key").c_str())
+					settings::aimbot::aimkey = std::stoi(value);
+				if (name == _xor_("dec::aim::fov").c_str())
+					settings::aimbot::fov = std::stoi(value);
+				if (name == _xor_("dec::aim::smooth").c_str())
+					settings::aimbot::smooth = static_cast<float>(std::stoi(value));
+				if (name == _xor_("bool::aim::rcs").c_str()) {
+					if (std::stoi(value) < 8) {
+						settings::aimbot::smooth = 8.f;
+					}
+					else {
+						settings::aimbot::smooth = std::stoi(value);
+					}
 				}
-				else {
-					settings::aimbot::smooth = std::stoi(value);
-				}
+				if (name == _xor_("bool::aim::rcs").c_str())
+					settings::aimbot::rcs = std::stoi(value);
+				if (name == _xor_("bool::aim::team").c_str())
+					settings::aimbot::aim_team = std::stoi(value);
+
+				//MISC
+				if (name == _xor_("bool::show::aimfov").c_str())
+					settings::misc::draw_aim_fov = std::stoi(value);
+				if (name == _xor_("bool::show::crosshair").c_str())
+					settings::misc::draw_crosshair = std::stoi(value);
+				if (name == _xor_("dec::crosshairsize").c_str())
+					settings::misc::crosshair_size = std::stoi(value);
 			}
-			if (name == _xor_("bool::aim::rcs").c_str())
-				settings::aimbot::rcs = std::stoi(value);
-			if (name == _xor_("bool::aim::team").c_str())
-				settings::aimbot::aim_team = std::stoi(value);
-
-			//MISC
-			if (name == _xor_("bool::show::aimfov").c_str())
-				settings::misc::draw_aim_fov = std::stoi(value);
-			if (name == _xor_("bool::show::crosshair").c_str())
-				settings::misc::draw_crosshair = std::stoi(value);
-			if (name == _xor_("dec::crosshairsize").c_str())
-				settings::misc::crosshair_size = std::stoi(value);
+			catch (...) {
+				continue;
+			}
 		}
 
 		return;

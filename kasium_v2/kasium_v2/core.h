@@ -1,6 +1,6 @@
 #pragma once
 
-typedef INT64(__stdcall* nt_compare_signing_levels)(uintptr_t, void*);
+typedef INT64(*nt_user_init)(uintptr_t, uintptr_t);
 
 namespace core {
 #ifndef DRIVER_GET_BASE_BY_ID
@@ -12,6 +12,8 @@ namespace core {
 #define DRIVER_GET_THREAD			6
 #define DRIVER_SET_THREAD			7
 #define DRIVER_GET_UM_MODULE		8
+#define DRIVER_MOUSE_EVENT			9
+#define DRIVER_INIT					10
 #endif
 
 #ifndef SHARED_DEFS
@@ -56,6 +58,12 @@ namespace core {
 		uint64_t thread_pointer;
 		uint64_t thread_alternative;
 	};
+
+	struct _k_mouse_request {
+		long x;
+		long y;
+		unsigned short button_flags;
+	};
 #endif // !SHARED_DEFS
 
 	bool core_init();
@@ -71,11 +79,13 @@ namespace core {
 	bool get_thread(HWND window_handle, uint64_t* thread_context);
 	bool set_thread(HWND window_handle, uint64_t thread_context);
 
+	void mouse_event(long x, long y, unsigned short buttong_flags);
+
 	template <typename T>
 	T read(const uint32_t process_id, const uintptr_t src, size_t size = sizeof(T))
 	{
 		T buffer;
-		mem_cpy(process_id, src, GetCurrentProcessId(), (uintptr_t)& buffer, size);
+		mem_cpy(process_id, src, GetCurrentProcessId(), (uintptr_t)&buffer, size);
 		return buffer;
 	}
 

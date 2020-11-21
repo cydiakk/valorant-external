@@ -12,16 +12,24 @@ namespace magic {
 		uint32_t Size;
 	};
 
+	struct Camera {
+		Vector3 position;
+		Vector3 rotation;
+		float fov;
+	};
+
+	struct ControlRotation {
+		Vector3 ctrl_rotation;
+		Vector3 write_ctrl_rotation;
+		int32_t writeflag;
+	};
+
 	struct HijackState
 	{
-		ArrayHeader Actors;
-		uint64_t PlayerState;
-		Vector3 Position;
-		Vector3 Rotation;
-		float fov;
-		Vector3 ControlRotation;
-		Vector3 WriteCtrlRotation;
-		int32_t writeflag;
+		ArrayHeader actors;
+		uint64_t playerstate;
+		Camera camera;
+		ControlRotation rotation;
 		uintptr_t localpawn;
 	};
 #pragma pack(pop)
