@@ -1,41 +1,47 @@
 ﻿  cheat.cpp
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(117,105): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(190,15): warning C4244: "Initialisierung": Konvertierung von "double" in "int", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(196,127): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(196,122): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(199,118): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(205,63): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(205,49): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(213,119): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(216,128): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(216,123): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(222,64): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(222,50): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(227,118): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(231,128): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(231,123): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(237,64): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(237,50): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(241,128): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(241,123): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(247,64): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(247,50): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(300,54): warning C4244: "=": Konvertierung von "_Ty1" in "uint32_t", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(71,146): warning C4244: "Argument": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(144,15): warning C4244: "Initialisierung": Konvertierung von "double" in "int", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(150,127): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(150,122): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(153,118): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(159,63): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(159,49): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(167,119): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(170,128): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(170,123): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(176,64): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(176,50): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(181,118): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(185,128): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(185,123): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(191,64): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(191,50): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(195,128): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(195,123): warning C4244: "Argument": Konvertierung von "int" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(201,64): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(201,50): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(253,54): warning C4244: "=": Konvertierung von "_Ty1" in "uint32_t", möglicher Datenverlust
           with
           [
               _Ty1=float
           ]
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(301,55): warning C4244: "=": Konvertierung von "_Ty2" in "uint32_t", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(254,55): warning C4244: "=": Konvertierung von "_Ty2" in "uint32_t", möglicher Datenverlust
           with
           [
               _Ty2=float
           ]
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(309,80): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(309,52): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(313,77): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
-D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(313,49): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(262,80): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(262,52): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(266,77): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.cpp(266,49): warning C4244: "Argument": Konvertierung von "uint32_t" in "float", möglicher Datenverlust
   core.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   decryptor.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
 D:\work\projects\kasium_v2\kasium_v2\idadefs.hpp(71,1): warning C4005: "LOBYTE": Makro-Neudefinition
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(206): message : Siehe vorherige Definition von "LOBYTE"
 D:\work\projects\kasium_v2\kasium_v2\idadefs.hpp(72,1): warning C4005: "LOWORD": Makro-Neudefinition
@@ -46,21 +52,35 @@ D:\work\projects\kasium_v2\kasium_v2\idadefs.hpp(75,1): warning C4005: "HIWORD":
 C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(205): message : Siehe vorherige Definition von "HIWORD"
 D:\work\projects\kasium_v2\kasium_v2\decryptor.cpp(75,38): warning C4244: "Argument": Konvertierung von "uint64_t" in "const uint32_t", möglicher Datenverlust
   definitions.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   engine.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   kasium_v2.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   magic.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   menu.cpp
 D:\work\projects\kasium_v2\kasium_v2\stdafx.hpp(3,1): warning C4005: "_CRT_SECURE_NO_WARNINGS": Makro-Neudefinition
 D:\work\projects\kasium_v2\kasium_v2\menu.cpp(1): message : Siehe vorherige Definition von "_CRT_SECURE_NO_WARNINGS"
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
 D:\work\projects\kasium_v2\kasium_v2\D3DMenuInputItem.hpp(14,32): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
   scanner.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
   settings.cpp
   utils.cpp
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(113,51): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
+D:\work\projects\kasium_v2\kasium_v2\cheat.hpp(114,36): warning C4244: "=": Konvertierung von "double" in "float", möglicher Datenverlust
 D:\work\projects\kasium_v2\kasium_v2\utils.cpp(24,74): warning C4267: "Argument": Konvertierung von "size_t" nach "int", Datenverlust möglich
 D:\work\projects\kasium_v2\kasium_v2\utils.cpp(280,48): warning C4244: "=": Konvertierung von "int" in "float", möglicher Datenverlust
   Code wird generiert.
   Previous IPDB not found, fall back to full compilation.
 D:\work\projects\kasium_v2\kasium_v2\magic.cpp(221): warning C4715: "magic::write_shell": Nicht alle Codepfade geben einen Wert zurück.
-  All 1152 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  All 1125 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
   Codegenerierung ist abgeschlossen.
   kasium_v2.vcxproj -> D:\work\projects\kasium_v2\x64\Release\kasium_v2.exe

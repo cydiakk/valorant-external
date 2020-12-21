@@ -36,16 +36,6 @@ namespace cheat {
 		bShellcodeWritten = true;
 
 		state = magic::read_results();
-		
-		//std::cout << "<state>" << std::endl;
-		//std::cout << "	actors ptr: 0x" << std::hex << state.actors.Ptr << std::endl;
-		//std::cout << "	actors size: 0x" << std::hex << state.actors.Size << std::endl;
-		//std::cout << "	localpawn: 0x" << state.localpawn << std::endl;
-		//std::cout << "	playerstate: 0x" << state.playerstate << std::endl;
-		//std::cout << "	camera rotation: " << state.camera.rotation.x << "	" << state.camera.rotation.y << "	" << state.camera.rotation.z << std::endl;
-		//std::cout << "	camera position: " << state.camera.position.x << "	" << state.camera.position.y << "	" << state.camera.position.z << std::endl;
-		//std::cout << "	camera fov: " << state.camera.fov << std::endl;
-		//std::cout << "	camera position: " << state.rotation.ctrl_rotation.x << "	" << state.rotation.ctrl_rotation.y << "	" << state.rotation.ctrl_rotation.z << std::endl;
 
 		cache::actors = state.actors.Ptr;
 		cache::actor_count = state.actors.Size;
@@ -61,43 +51,10 @@ namespace cheat {
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
 			entityCache cached = entities[i];
 
-			//std::cout << "<cached>" << std::endl;
-			//std::cout << "	damage_ctr: " << cached.dmg_ctrl << std::endl;
-			//std::cout << "	dormant: " << cached.bdormant << std::endl;
-			//std::cout << "	playerstate: " << cached.playerstate << std::endl;
-			//std::cout << "	uniqueid: " << cached.unique_id << std::endl;
-			//std::cout << "	pobjptr: " << cached.pobjptr << std::endl;
-			//std::cout << "	mesh: " << cached.mesh << std::endl;
-			//std::cout << "	root comp: " << cached.root_comp << std::endl;
-
 			if (!tslEntity.get_info(cached)) {
-				//std::cout << "<actor>" << std::endl;
-				//std::cout << "	actor position: " << tslEntity.root_position.x << "	" << tslEntity.root_position.y << "	" << tslEntity.root_position.z << std::endl;
-				//std::cout << "	num bones: " << tslEntity.num_bones << std::endl;
-				//std::cout << "	damage_ctr: " << tslEntity.damage_ctrl << std::endl;
-				//std::cout << "	dormant: " << tslEntity.b_dormant << std::endl;
-				//std::cout << "	playerstate: " << tslEntity.player_state << std::endl;
-				//std::cout << "	health: " << tslEntity.health << std::endl;
-				//std::cout << "	skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
-				//std::cout << "	unique_id: " << tslEntity.unique_id << std::endl;
-				//std::cout << "	mesh: " << tslEntity.mesh << std::endl;
-				//std::cout << "	actor head position: " << tslEntity.head_position.x << "	" << tslEntity.head_position.y << "	" << tslEntity.head_position.z << std::endl;
-
 				continue;
 			}
 			else {
-				std::cout << "<actor>" << std::endl;
-				std::cout << "	actor position: " << tslEntity.root_position.x << "	" << tslEntity.root_position.y << "	" << tslEntity.root_position.z << std::endl;
-				std::cout << "	num bones: " << tslEntity.num_bones << std::endl;
-				std::cout << "	damage_ctr: " << tslEntity.damage_ctrl << std::endl;
-				std::cout << "	dormant: " << tslEntity.b_dormant << std::endl;
-				std::cout << "	playerstate: " << tslEntity.player_state << std::endl;
-				std::cout << "	health: " << tslEntity.health << std::endl;
-				std::cout << "	skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
-				std::cout << "	unique_id: " << tslEntity.unique_id << std::endl;
-				std::cout << "	mesh: " << tslEntity.mesh << std::endl;
-				std::cout << "	actor head position: " << tslEntity.head_position.x << "	" << tslEntity.head_position.y << "	" << tslEntity.head_position.z << std::endl;
-
 				tmpList.push_back(tslEntity);
 			}
 		}
@@ -106,15 +63,12 @@ namespace cheat {
 	}
 
 	void draw_skeleton(d2d_renderer_t& renderer, TslEntity& entity, D2D1::ColorF color) {
-		if (entity.num_bones < 90) { return; }
+		//if (entity.num_bones < 90) { return; }
 
 		Vector3 neckpos = engine::GetBoneWithRotation(entity.mesh, engine::e_male_bones::Spine4);
 		Vector3 pelvispos = engine::GetBoneWithRotation(entity.mesh, 72);
 
-		// draw head bone
-		Vector3 headpos = engine::GetBoneWithRotation(entity.mesh, 8);
-		Vector3 headpos2d = engine::WorldToScreen(headpos, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
-		renderer.draw_circle(headpos2d.x, headpos2d.y, (4500 / localPlayer.camera_position.Distance(headpos)) * 2.5, 2, D2D1::ColorF::WhiteSmoke, false);
+		renderer.draw_circle(entity.head_position_2d.x, entity.head_position_2d.y, (4500 / localPlayer.camera_position.Distance(entity.head_position)) * 2.5, 2, D2D1::ColorF::WhiteSmoke, false);
 
 		Vector3 previous(0, 0, 0);
 		Vector3 current, p1, c1;
@@ -160,8 +114,8 @@ namespace cheat {
 		for (uint32_t i = 0; i < entityListCpy.size(); ++i) {
 			TslEntity current = entityListCpy[i];
 
-			//if (localPlayer.local_pawn == current.p_obj_ptr || !utils::is_valid_addr(current.skeletal_mesh))
-			//	continue;
+			if (localPlayer.local_pawn == current.p_obj_ptr /*|| !utils::is_valid_addr(current.skeletal_mesh)*/)
+				continue;
 
 			//if (current.head_position.z <= current.root_position.z || current.head_position_2d.y > current.root_position_2d.y)
 			//	continue;
@@ -172,18 +126,18 @@ namespace cheat {
 			}
 
 			//if (current.num_bones < 95 || current.num_bones > 103) { continue; }
-			//{
-			//	Vector3 neckpos = engine::GetBoneWithRotation(current.mesh, engine::e_male_bones::Spine4);
-			//	Vector3 pelvispos = engine::GetBoneWithRotation(current.mesh, 72);
 
-			//	if (neckpos.x < current.root_position.x - 200 || neckpos.x > current.root_position.x + 200 || neckpos.y < current.root_position.y - 200 || neckpos.y > current.root_position.y + 200 || neckpos.z < current.root_position.z - 200 || neckpos.z > current.root_position.z + 200)
-			//		continue;
+			{
+				Vector3 neckpos = engine::GetBoneWithRotation(current.mesh, engine::e_male_bones::Spine4);
+				Vector3 pelvispos = engine::GetBoneWithRotation(current.mesh, 72);
 
-			//	if (pelvispos.x < current.root_position.x - 200 || pelvispos.x > current.root_position.x + 200 || pelvispos.y < current.root_position.y - 200 || pelvispos.y > current.root_position.y + 200 || pelvispos.z > current.root_position.z + 200 || pelvispos.z < current.root_position.z - 200)
-			//		continue;
-			//}
+				if (neckpos.x < current.root_position.x - 200 || neckpos.x > current.root_position.x + 200 || neckpos.y < current.root_position.y - 200 || neckpos.y > current.root_position.y + 200 || neckpos.z < current.root_position.z - 200 || neckpos.z > current.root_position.z + 200)
+					continue;
 
-			//update cameramanager every entity to keep things fluent
+				if (pelvispos.x < current.root_position.x - 200 || pelvispos.x > current.root_position.x + 200 || pelvispos.y < current.root_position.y - 200 || pelvispos.y > current.root_position.y + 200 || pelvispos.z > current.root_position.z + 200 || pelvispos.z < current.root_position.z - 200)
+					continue;
+			}
+
 			localPlayer.get_camera();
 			distance = localPlayer.camera_position.Distance(current.root_position);
 
@@ -251,7 +205,6 @@ namespace cheat {
 			}
 
 			//aimbot setup
-			//team check
 			if (current.team == localPlayer.team && !settings::aimbot::aim_team)
 				continue;
 
@@ -329,12 +282,6 @@ namespace cheat {
 				Beep(100, 100);
 				break;
 			}
-
-			//counter++;
-			//if (counter >= 20) {
-			//	utils::parse_config();
-			//	counter = 0;
-			//}
 		}
 	}
 }

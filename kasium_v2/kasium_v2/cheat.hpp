@@ -107,6 +107,13 @@ namespace cheat {
 			this->head_position = engine::GetBoneWithRotation(this->mesh, engine::e_male_bones::Head);
 			this->root_position = core::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
 
+			if (this->head_position.z < this->root_position.z) {
+				float diff = this->root_position.z - this->head_position.z;
+				float zcache = this->root_position.z;
+				this->root_position.z = this->head_position.z + (diff * 0.8);
+				this->head_position.z = zcache + (diff * 0.8);
+			}
+
 			this->head_position_2d = engine::WorldToScreen(this->head_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
 			this->root_position_2d = engine::WorldToScreen(this->root_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
 		}
