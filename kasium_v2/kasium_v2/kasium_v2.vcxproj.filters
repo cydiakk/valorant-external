@@ -42,9 +42,6 @@
     <Filter Include="decryptor">
       <UniqueIdentifier>{80666dcc-df1a-4a99-95da-67f3e8b926c8}</UniqueIdentifier>
     </Filter>
-    <Filter Include="aimbot">
-      <UniqueIdentifier>{1efa45a3-e36b-46c9-9e86-35a562911ec3}</UniqueIdentifier>
-    </Filter>
     <Filter Include="engine">
       <UniqueIdentifier>{f31ea15f-9866-494b-bd93-3978387adff3}</UniqueIdentifier>
     </Filter>
@@ -82,9 +79,6 @@
     </ClCompile>
     <ClCompile Include="decryptor.cpp">
       <Filter>decryptor</Filter>
-    </ClCompile>
-    <ClCompile Include="aimbot.cpp">
-      <Filter>aimbot</Filter>
     </ClCompile>
     <ClCompile Include="core.cpp">
       <Filter>core_client</Filter>
@@ -154,9 +148,6 @@
     <ClInclude Include="idadefs.hpp" />
     <ClInclude Include="decryptor.hpp">
       <Filter>decryptor</Filter>
-    </ClInclude>
-    <ClInclude Include="aimbot.hpp">
-      <Filter>aimbot</Filter>
     </ClInclude>
     <ClInclude Include="core.h">
       <Filter>core_client</Filter>

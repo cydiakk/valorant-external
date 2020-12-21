@@ -42,14 +42,15 @@ namespace offsets {
 		const uint32_t id = 0x18;
 		const uint32_t b_dormant = 0x100;
 
-		const uint32_t root_comp = 0x238;
-		const uint32_t root_pos = 0x184;
+		const uint32_t root_comp = 0x210;
+		// 0x15C
+		const uint32_t root_pos = 0x140;
 
 		const uint32_t a_mesh = 0x408;
 		namespace mesh {
 			//bonearray == 0x548 || 0x558
-			//skeletal_mesh = 0x538
-			const uint32_t skeletal_mesh = 0x540;
+			//skeletal_mesh = 0x540
+			const uint32_t skeletal_mesh = 0x508;
 			const uint32_t bones_num = 0x1A0;
 			const uint32_t b_recently_rendered = 0x69f;
 		}
@@ -58,13 +59,13 @@ namespace offsets {
 		const uint32_t a_dmg_ctrl = 0xA60;
 		namespace dmg_ctrl {
 			const uint32_t is_alive = 0x1A9;
-			const uint32_t health = 0x1B0;
+			const uint32_t health = 0x188;
 		}
 
 		const uint32_t a_playerstate = 0x3c8;
 		namespace playerstate {
-			const uint32_t team_id_dref = 0x5A0;
-			const uint32_t team_id = 0x118;
+			const uint32_t team_id_dref = 0x578;
+			const uint32_t team_id = 0xF0;
 		}
 	}
 }

@@ -12,7 +12,6 @@ namespace core {
 #define DRIVER_GET_THREAD			6
 #define DRIVER_SET_THREAD			7
 #define DRIVER_GET_UM_MODULE		8
-#define DRIVER_MOUSE_EVENT			9
 #define DRIVER_INIT					10
 #endif
 
@@ -59,11 +58,6 @@ namespace core {
 		uint64_t thread_alternative;
 	};
 
-	struct _k_mouse_request {
-		long x;
-		long y;
-		unsigned short button_flags;
-	};
 #endif // !SHARED_DEFS
 
 	bool core_init();
@@ -78,8 +72,6 @@ namespace core {
 
 	bool get_thread(HWND window_handle, uint64_t* thread_context);
 	bool set_thread(HWND window_handle, uint64_t thread_context);
-
-	void mouse_event(long x, long y, unsigned short buttong_flags);
 
 	template <typename T>
 	T read(const uint32_t process_id, const uintptr_t src, size_t size = sizeof(T))

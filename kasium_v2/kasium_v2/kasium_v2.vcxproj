@@ -46,7 +46,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
-    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v142</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
@@ -160,7 +160,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="aimbot.cpp" />
     <ClCompile Include="cheat.cpp" />
     <ClCompile Include="core.cpp" />
     <ClCompile Include="decryptor.cpp" />
@@ -174,7 +173,6 @@
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="aimbot.hpp" />
     <ClInclude Include="cheat.hpp" />
     <ClInclude Include="cli.hpp" />
     <ClInclude Include="comp_render.hpp" />

@@ -249,27 +249,27 @@ void utils::parse_config() {
 				if (name == _xor_("bool::esp::health").c_str())
 					settings::esp::health = std::stoi(value);
 
-				//AIMBOT
-				if (name == _xor_("bool::aim::master").c_str())
-					settings::aimbot::master = std::stoi(value);
-				if (name == _xor_("hex::aim::key").c_str())
-					settings::aimbot::aimkey = std::stoi(value);
-				if (name == _xor_("dec::aim::fov").c_str())
-					settings::aimbot::fov = std::stoi(value);
-				if (name == _xor_("dec::aim::smooth").c_str())
-					settings::aimbot::smooth = static_cast<float>(std::stoi(value));
-				if (name == _xor_("bool::aim::rcs").c_str()) {
-					if (std::stoi(value) < 8) {
-						settings::aimbot::smooth = 8.f;
-					}
-					else {
-						settings::aimbot::smooth = std::stoi(value);
-					}
-				}
-				if (name == _xor_("bool::aim::rcs").c_str())
-					settings::aimbot::rcs = std::stoi(value);
-				if (name == _xor_("bool::aim::team").c_str())
-					settings::aimbot::aim_team = std::stoi(value);
+				////AIMBOT
+				//if (name == _xor_("bool::aim::master").c_str())
+				//	settings::aimbot::master = std::stoi(value);
+				//if (name == _xor_("hex::aim::key").c_str())
+				//	settings::aimbot::aimkey = std::stoi(value);
+				//if (name == _xor_("dec::aim::fov").c_str())
+				//	settings::aimbot::fov = std::stoi(value);
+				//if (name == _xor_("dec::aim::smooth").c_str())
+				//	settings::aimbot::smooth = static_cast<float>(std::stoi(value));
+				//if (name == _xor_("bool::aim::rcs").c_str()) {
+				//	if (std::stoi(value) < 8) {
+				//		settings::aimbot::smooth = 8.f;
+				//	}
+				//	else {
+				//		settings::aimbot::smooth = std::stoi(value);
+				//	}
+				//}
+				//if (name == _xor_("bool::aim::rcs").c_str())
+				//	settings::aimbot::rcs = std::stoi(value);
+				//if (name == _xor_("bool::aim::team").c_str())
+				//	settings::aimbot::aim_team = std::stoi(value);
 
 				//MISC
 				if (name == _xor_("bool::show::aimfov").c_str())

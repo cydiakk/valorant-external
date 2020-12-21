@@ -1,3 +1,4 @@
+#pragma once
 
 namespace decryptor {
 	extern uint64_t pkey;

@@ -20,7 +20,7 @@ namespace cheat {
 		std::vector<TslEntity> tmpList;
 
 		//do magic
-		if (!bShellcodeWritten) { 
+		if (!bShellcodeWritten) {
 			//really critical... will close the cheat on failure
 			if (magic::magic_scan(decryptor::pkey, decryptor::pstate)) {
 				Beep(300, 100); Beep(500, 100);
@@ -36,27 +36,68 @@ namespace cheat {
 		bShellcodeWritten = true;
 
 		state = magic::read_results();
+		
+		//std::cout << "<state>" << std::endl;
+		//std::cout << "	actors ptr: 0x" << std::hex << state.actors.Ptr << std::endl;
+		//std::cout << "	actors size: 0x" << std::hex << state.actors.Size << std::endl;
+		//std::cout << "	localpawn: 0x" << state.localpawn << std::endl;
+		//std::cout << "	playerstate: 0x" << state.playerstate << std::endl;
+		//std::cout << "	camera rotation: " << state.camera.rotation.x << "	" << state.camera.rotation.y << "	" << state.camera.rotation.z << std::endl;
+		//std::cout << "	camera position: " << state.camera.position.x << "	" << state.camera.position.y << "	" << state.camera.position.z << std::endl;
+		//std::cout << "	camera fov: " << state.camera.fov << std::endl;
+		//std::cout << "	camera position: " << state.rotation.ctrl_rotation.x << "	" << state.rotation.ctrl_rotation.y << "	" << state.rotation.ctrl_rotation.z << std::endl;
 
 		cache::actors = state.actors.Ptr;
 		cache::actor_count = state.actors.Size;
-		//end magic
 
 		if (cache::actor_count > 0x800) { return false; }
 
 		if (!utils::is_valid_addr(cache::actors)) { return false; }
 		localPlayer.get_localplayer(state);
 
-		//copy all entities at once
 		core::mem_cpy(globals::t_proc_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
 
 		TslEntity tslEntity{};
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
 			entityCache cached = entities[i];
 
+			//std::cout << "<cached>" << std::endl;
+			//std::cout << "	damage_ctr: " << cached.dmg_ctrl << std::endl;
+			//std::cout << "	dormant: " << cached.bdormant << std::endl;
+			//std::cout << "	playerstate: " << cached.playerstate << std::endl;
+			//std::cout << "	uniqueid: " << cached.unique_id << std::endl;
+			//std::cout << "	pobjptr: " << cached.pobjptr << std::endl;
+			//std::cout << "	mesh: " << cached.mesh << std::endl;
+			//std::cout << "	root comp: " << cached.root_comp << std::endl;
+
 			if (!tslEntity.get_info(cached)) {
+				//std::cout << "<actor>" << std::endl;
+				//std::cout << "	actor position: " << tslEntity.root_position.x << "	" << tslEntity.root_position.y << "	" << tslEntity.root_position.z << std::endl;
+				//std::cout << "	num bones: " << tslEntity.num_bones << std::endl;
+				//std::cout << "	damage_ctr: " << tslEntity.damage_ctrl << std::endl;
+				//std::cout << "	dormant: " << tslEntity.b_dormant << std::endl;
+				//std::cout << "	playerstate: " << tslEntity.player_state << std::endl;
+				//std::cout << "	health: " << tslEntity.health << std::endl;
+				//std::cout << "	skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
+				//std::cout << "	unique_id: " << tslEntity.unique_id << std::endl;
+				//std::cout << "	mesh: " << tslEntity.mesh << std::endl;
+				//std::cout << "	actor head position: " << tslEntity.head_position.x << "	" << tslEntity.head_position.y << "	" << tslEntity.head_position.z << std::endl;
+
 				continue;
 			}
 			else {
+				std::cout << "<actor>" << std::endl;
+				std::cout << "	actor position: " << tslEntity.root_position.x << "	" << tslEntity.root_position.y << "	" << tslEntity.root_position.z << std::endl;
+				std::cout << "	num bones: " << tslEntity.num_bones << std::endl;
+				std::cout << "	damage_ctr: " << tslEntity.damage_ctrl << std::endl;
+				std::cout << "	dormant: " << tslEntity.b_dormant << std::endl;
+				std::cout << "	playerstate: " << tslEntity.player_state << std::endl;
+				std::cout << "	health: " << tslEntity.health << std::endl;
+				std::cout << "	skeletal_mesh: " << tslEntity.skeletal_mesh << std::endl;
+				std::cout << "	unique_id: " << tslEntity.unique_id << std::endl;
+				std::cout << "	mesh: " << tslEntity.mesh << std::endl;
+				std::cout << "	actor head position: " << tslEntity.head_position.x << "	" << tslEntity.head_position.y << "	" << tslEntity.head_position.z << std::endl;
+
 				tmpList.push_back(tslEntity);
 			}
 		}
@@ -109,7 +150,6 @@ namespace cheat {
 
 		settings::is_ingame = true;
 
-		//settings::is_ingame = true;
 		auto entityListCpy = entityList;
 
 		float distance = 0.f;
@@ -120,28 +160,28 @@ namespace cheat {
 		for (uint32_t i = 0; i < entityListCpy.size(); ++i) {
 			TslEntity current = entityListCpy[i];
 
-			if (localPlayer.local_pawn == current.p_obj_ptr || !utils::is_valid_addr(current.skeletal_mesh))
-				continue;
+			//if (localPlayer.local_pawn == current.p_obj_ptr || !utils::is_valid_addr(current.skeletal_mesh))
+			//	continue;
 
-			if (current.head_position.z <= current.root_position.z || current.head_position_2d.y > current.root_position_2d.y)
-				continue;
+			//if (current.head_position.z <= current.root_position.z || current.head_position_2d.y > current.root_position_2d.y)
+			//	continue;
 
 			if (current.num_bones > 5 && current.num_bones < 40) {
 				renderer.draw_corner_box(current.root_position_2d.x - 20.f, current.root_position_2d.y - 20.f, 100 / (distance / 3.5f), 100 / (distance / 3.5f), 2, D2D1::ColorF::White);
 				continue;
 			}
 
-			if (current.num_bones < 95 || current.num_bones > 103) { continue; }
-			{
-				Vector3 neckpos = engine::GetBoneWithRotation(current.mesh, engine::e_male_bones::Spine4);
-				Vector3 pelvispos = engine::GetBoneWithRotation(current.mesh, 72);
+			//if (current.num_bones < 95 || current.num_bones > 103) { continue; }
+			//{
+			//	Vector3 neckpos = engine::GetBoneWithRotation(current.mesh, engine::e_male_bones::Spine4);
+			//	Vector3 pelvispos = engine::GetBoneWithRotation(current.mesh, 72);
 
-				if (neckpos.x < current.root_position.x - 200 || neckpos.x > current.root_position.x + 200 || neckpos.y < current.root_position.y - 200 || neckpos.y > current.root_position.y + 200 || neckpos.z < current.root_position.z - 200 || neckpos.z > current.root_position.z + 200)
-					continue;
+			//	if (neckpos.x < current.root_position.x - 200 || neckpos.x > current.root_position.x + 200 || neckpos.y < current.root_position.y - 200 || neckpos.y > current.root_position.y + 200 || neckpos.z < current.root_position.z - 200 || neckpos.z > current.root_position.z + 200)
+			//		continue;
 
-				if (pelvispos.x < current.root_position.x - 200 || pelvispos.x > current.root_position.x + 200 || pelvispos.y < current.root_position.y - 200 || pelvispos.y > current.root_position.y + 200 || pelvispos.z > current.root_position.z + 200 || pelvispos.z < current.root_position.z - 200)
-					continue;
-			}
+			//	if (pelvispos.x < current.root_position.x - 200 || pelvispos.x > current.root_position.x + 200 || pelvispos.y < current.root_position.y - 200 || pelvispos.y > current.root_position.y + 200 || pelvispos.z > current.root_position.z + 200 || pelvispos.z < current.root_position.z - 200)
+			//		continue;
+			//}
 
 			//update cameramanager every entity to keep things fluent
 			localPlayer.get_camera();
@@ -227,34 +267,34 @@ namespace cheat {
 			}
 		}
 
-		if (settings::aimbot::master && GetAsyncKeyState(settings::aimbot::aimkey) & 0x8000 && closes_entity.mesh) {
-			uint32_t on = 0x1111;
-			//do aimbot
-			if (utils::is_valid_addr(plocalproxy)) {
-				aimbot::aimbot(closes_entity, plocalproxy);
-				core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&on, plocalproxy + 0x48, sizeof(uint32_t));
-			}
-		}
-		else {
-			uint32_t off = 0x0;
-			core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&off, plocalproxy + 0x48, sizeof(uint32_t));
-		}
+		//if (settings::aimbot::master && GetAsyncKeyState(settings::aimbot::aimkey) & 0x8000 && closes_entity.mesh) {
+		//	uint32_t on = 0x1111;
+		//	//do aimbot
+		//	if (utils::is_valid_addr(plocalproxy)) {
+		//		aimbot::aimbot(closes_entity, plocalproxy);
+		//		core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&on, plocalproxy + 0x48, sizeof(uint32_t));
+		//	}
+		//}
+		//else {
+		//	uint32_t off = 0x0;
+		//	core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&off, plocalproxy + 0x48, sizeof(uint32_t));
+		//}
 	}
-	
+
 	void cheat_loop() {
-		while(!utils::is_valid_addr(globals::t_process_base))
+		while (!utils::is_valid_addr(globals::t_process_base))
 			globals::t_process_base = core::get_process_base_by_id(globals::t_proc_id);
 
 		printf(_xor_("[+] id: %d\n").c_str(), globals::t_proc_id);
 		printf(_xor_("[+] base:  0x%p\n").c_str(), globals::t_process_base);
 
-		d2d_window_t window { };
+		d2d_window_t window{ };
 		d2d_renderer_t renderer{ window._handle, globals::t_hwnd };
 		uint32_t counter = 0;
 
-#ifndef DEBUG_PRINT
-		ShowWindow(GetConsoleWindow(), SW_HIDE);
-#endif
+//#ifndef DEBUG_PRINT
+//		ShowWindow(GetConsoleWindow(), SW_HIDE);
+//#endif
 		while (true) {
 			static const auto center = wnd_hjk::vec2_t{ wnd_hjk::screen_resolution.first * 0.5f, wnd_hjk::screen_resolution.second * 0.5f };
 			globals::screen_width = wnd_hjk::screen_resolution.first;
@@ -279,6 +319,7 @@ namespace cheat {
 
 			//exit if key is pressed
 			if (GetAsyncKeyState(VK_F12) & 0x8000) {
+				renderer.~d2d_renderer_t();
 				Beep(100, 100);
 				break;
 			}
@@ -289,11 +330,11 @@ namespace cheat {
 				break;
 			}
 
-			counter++;
-			if (counter >= 20) {
-				utils::parse_config();
-				counter = 0;
-			}
+			//counter++;
+			//if (counter >= 20) {
+			//	utils::parse_config();
+			//	counter = 0;
+			//}
 		}
 	}
 }

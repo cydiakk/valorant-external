@@ -142,7 +142,6 @@ public:
 			RET_CHK2(composition_device->WaitForCommitCompletion())
 
 		core::set_thread(remote_window, remote_thread);
-		printf("[+] successfully setup...\n");
 	}
 
 	void begin_scene()
@@ -249,7 +248,7 @@ public:
 		if (is_destroyed)
 			return;
 
-		/*this->manual_destruct();*/
+		this->manual_destruct();
 	}
 
 private:

@@ -1,9 +1,6 @@
 #include "stdafx.hpp"
 #include "idadefs.hpp"
 
-#define DECRYPTOR_O_KEY			0x6EE7778
-#define DECRYPTOR_O_STATE		0x6EE7740
-
 namespace decryptor {
 	uint64_t pkey = 0;
 	uint64_t pstate = 0;
@@ -63,7 +60,7 @@ namespace decryptor {
 
 	__forceinline uint64_t read_uworld(uint64_t main_base)
 	{
-		uint64_t key = core::read<uint64_t>(globals::t_proc_id, pkey/*main_base + DECRYPTOR_O_KEY*/);
+		uint64_t key = core::read<uint64_t>(globals::t_proc_id, pkey);
 		if (!key) { return 0; }
 
 #pragma pack(push, 1)
@@ -73,9 +70,9 @@ namespace decryptor {
 		};
 #pragma pack(pop)
 		State state = { 0 };
-		state = core::read<State>(globals::t_proc_id, pstate/*main_base + DECRYPTOR_O_STATE*/);
+		state = core::read<State>(globals::t_proc_id, pstate);
 
-		uintptr_t decrypt = decrypt_uworld(key, (const uint64_t*)& state);
+		uintptr_t decrypt = decrypt_uworld(key, (const uint64_t*)&state);
 		return decrypt;
 	}
 }

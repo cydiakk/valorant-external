@@ -71,11 +71,11 @@ public:
 	{
 		return sqrtf(((v.x - x) * (v.x - x) + (v.y - y) * (v.y - y)));
 	}
-	inline Vector2 operator+(const Vector2 & v) const
+	inline Vector2 operator+(const Vector2& v) const
 	{
 		return Vector2(x + v.x, y + v.y);
 	}
-	inline Vector2 operator-(const Vector2 & v) const
+	inline Vector2 operator-(const Vector2& v) const
 	{
 		return Vector2(x - v.x, y - v.y);
 	}

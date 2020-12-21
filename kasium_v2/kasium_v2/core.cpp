@@ -4,32 +4,17 @@ namespace core {
 	nt_user_init ntusrinit = nullptr;
 
 	bool core_init() {
-		ntusrinit = (nt_user_init)GetProcAddress(LoadLibraryA("win32u.dll"), "NtUserInitialize");
+		ntusrinit = (nt_user_init)GetProcAddress(LoadLibraryA(_xor_("win32u.dll").c_str()), _xor_("NtUserInitialize").c_str());
 		if (!ntusrinit) {
-			//some more shit
-			MessageBoxA(GetConsoleWindow(), _xor_("Required API wasn't found!").c_str(), _xor_("ERROR").c_str(), 0);
 			return false;
 		}
 		else
 		{
-			//check if kernel is present
-			std::clock_t start;
-			double duration;
-
-			start = std::clock();
-
-			//call with init delay
-			ntusrinit(0xDEADBEEF + DRIVER_INIT, 0xFFFFFFFFFF);
-
-			duration = (std::clock() - start) / (double)CLOCKS_PER_SEC;
-
-			if (duration > (double)1) {
-				//kernel is present
+			INT64 state = ntusrinit(0xDEADBEEF + DRIVER_INIT, 0xFFFFFFFFFF);
+			if (state == 0x69) {
 				return true;
 			}
 		}
-
-		MessageBoxA(GetConsoleWindow(), _xor_("Service isn't present. Please restart your system!").c_str(), _xor_("ERROR").c_str(), 0);
 		return false;
 	}
 
@@ -38,7 +23,6 @@ namespace core {
 		_k_get_base_by_id out = { pid, (uint64_t)&base };
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_GET_BASE_BY_ID, reinterpret_cast<uintptr_t>(&out));
-
 		return base;
 	}
 
@@ -65,46 +49,47 @@ namespace core {
 		out.pid = pid;
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_GET_UM_MODULE, reinterpret_cast<uintptr_t>(&out));
-		//if (status == 0xDEADBEEF) {
+
 		base = mod_base;
 		size = mod_size;
-		return true;
-		//}
-		//else
-		//	return false;
+
+		if (status == 0x69)
+			return true;
+		else
+			return false;
 	}
 
 	bool mem_cpy(uint32_t src_pid, uint64_t src_addr, uint32_t dst_pid, uint64_t dst_addr, size_t size) {
 		_k_rw_request out = { src_pid, src_addr, dst_pid, dst_addr, size };
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_MEM_CPY, reinterpret_cast<uintptr_t>(&out));
-		//if (status == 0xDEADBEEF)
-		//	return true;
-		//else
-		//	return false;
-		return true;
+
+		if (status == 0x69)
+			return true;
+		else
+			return false;
 	}
 
 	bool mem_cpy_readonly(uint32_t src_pid, uint64_t src_addr, uint32_t dst_pid, uint64_t dst_addr, size_t size) {
 		_k_rw_request out = { src_pid, src_addr, dst_pid, dst_addr, size };
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_CPY_TO_READONLY, reinterpret_cast<uintptr_t>(&out));
-		//if (status == 0xDEADBEEF)
-		//	return true;
-		//else
-		//	return false;
-		return true;
+
+		if (status == 0x69)
+			return true;
+		else
+			return false;
 	}
 
 	bool virtual_protect(uint32_t process_id, uintptr_t address, uint32_t protect, size_t size) {
 		_k_virtual_protect out = { process_id, protect, address, size };
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_PROTECT, reinterpret_cast<uintptr_t>(&out));
-		//if (status == 0xDEADBEEF)
-		//	return true;
-		//else
-		//	return false;
-		return true;
+
+		if (status == 0x69)
+			return true;
+		else
+			return false;
 	}
 
 	bool get_thread(HWND window_handle, uint64_t* thread_context) {
@@ -114,16 +99,12 @@ namespace core {
 		out.thread_alternative = 0;
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_GET_THREAD, reinterpret_cast<uintptr_t>(&out));
-		//if (status == 0xDEADBEEF) {
-		//	*thread_context = out.thread_pointer;
-		//	return true;
-		//}
-		//else {
-		//	return false;
-		//}
 
 		*thread_context = out.thread_pointer;
-		return true;
+		if (status == 0x69)
+			return true;
+		else
+			return false;
 	}
 
 	bool set_thread(HWND window_handle, uint64_t thread_context) {
@@ -134,21 +115,9 @@ namespace core {
 		out.thread_alternative = thread_context;
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_SET_THREAD, reinterpret_cast<uintptr_t>(&out));
-		//if (status == 0xDEADBEEF) {
-		//	return true;
-		//}
-		//else {
-		//	return false;
-		//}
-		return true;
-	}
-
-	void mouse_event(long x, long y, unsigned short buttong_flags) {
-		_k_mouse_request out{};
-		out.x = x;
-		out.y = y;
-		out.button_flags = buttong_flags;
-
-		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_MOUSE_EVENT, reinterpret_cast<uintptr_t>(&out));
+		if (status == 0x69)
+			return true;
+		else
+			return false;
 	}
 }

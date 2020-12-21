@@ -6,13 +6,8 @@ namespace cheat {
 #ifndef CHEAT
 #define CHEAT
 	struct LocalPlayer {
-		//uintptr_t	local_player_array{};
-		//uintptr_t	local_player{};
-		//uintptr_t	local_ctrl{};
 		uintptr_t	local_pawn{};
 		uintptr_t	player_state{};
-
-		//uintptr_t	camera_manager{};
 
 		int32_t	team{};
 
@@ -24,10 +19,11 @@ namespace cheat {
 			magic::HijackState state = magic::read_results();
 			this->camera_position = state.camera.position;
 			this->camera_rotation = state.camera.rotation;
+
 			this->fov = state.camera.fov;
 		}
-		
-		void get_localplayer(magic::HijackState &state) {
+
+		void get_localplayer(magic::HijackState& state) {
 			this->local_pawn = state.localpawn;
 			this->player_state = state.playerstate;
 			this->team = core::read<int32_t>(globals::t_proc_id, core::read<uint64_t>(globals::t_proc_id, this->player_state + offsets::actor::playerstate::team_id_dref) + offsets::actor::playerstate::team_id);
@@ -106,30 +102,19 @@ namespace cheat {
 			this->b_dormant = (bool)(bdormant & ((1 << 8) - 1));
 		}
 
-public:
+	public:
 		void get_2d_pos() {
 			this->head_position = engine::GetBoneWithRotation(this->mesh, engine::e_male_bones::Head);
 			this->root_position = core::read<Vector3>(globals::t_proc_id, root_comp + offsets::actor::root_pos);
-
-			//if (this->head_position.z > this->root_position.z) {
-			//	return false;
-			//}
-
-			//no idea why this suddenly happens :-(
-			//if (this->head_position.z < this->root_position.z) {
-			//	float diff = this->root_position.z - this->head_position.z;
-			//	float zcache = head_position.z;
-
-			//	head_position.z = root_position.z + (diff - diff / 3.3f);
-			//	root_position.z = zcache + (diff - diff / 3.3f);
-			//}
 
 			this->head_position_2d = engine::WorldToScreen(this->head_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
 			this->root_position_2d = engine::WorldToScreen(this->root_position, localPlayer.camera_position, localPlayer.camera_rotation, localPlayer.fov);
 		}
 
 		bool get_info(entityCache& cached) {
-			if (cached.unique_id != 0x100011e) { return false; }
+			if (cached.unique_id != 0x11e0101) {
+				return false; 
+			}
 			this->unique_id = cached.unique_id;
 
 			if (!utils::is_valid_addr(cached.mesh) || !utils::is_valid_addr(cached.root_comp) /*|| !utils::is_valid_addr(cached.dmg_ctrl)*//* || !utils::is_valid_addr(cached.playerstate)*/) {
