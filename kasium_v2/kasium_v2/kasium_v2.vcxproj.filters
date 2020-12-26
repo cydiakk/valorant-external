@@ -83,6 +83,9 @@
     <ClCompile Include="core.cpp">
       <Filter>core_client</Filter>
     </ClCompile>
+    <ClCompile Include="aimbot.cpp">
+      <Filter>Quelldateien\cheat</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.hpp">
@@ -154,6 +157,9 @@
     </ClInclude>
     <ClInclude Include="xorstr.hpp">
       <Filter>Quelldateien\crypt</Filter>
+    </ClInclude>
+    <ClInclude Include="aimbot.hpp">
+      <Filter>Quelldateien\cheat</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

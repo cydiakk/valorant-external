@@ -151,7 +151,7 @@ namespace magic {
 		// \x48\x8D\x05\xCC\xCC\xCC\xCC\x48\x89\x01\xC3
 		uintptr_t virtual_write_proxy = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x48\x89\x01\xC3", (char*)"xxxx");
 		if (!virtual_write_proxy) { return false; }
-		magic_o_write_proxy = code_start + (virtual_write_proxy - (uintptr_t)codebuffer) + 0x8 - base;
+		magic_o_write_proxy = code_start + (virtual_write_proxy - (uintptr_t)codebuffer) - base;
 
 		uintptr_t virtual_hk_function = utils::scanPattern((uint8_t*)codebuffer, nt.OptionalHeader.SizeOfCode, (char*)"\x48\x8B\x05\xCC\xCC\xCC\xCC\x48\x03\xE9\x45\x33\xC0", (char*)"xxx????xxxxxx");
 		if (!virtual_hk_function) { return false; }

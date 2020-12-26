@@ -55,6 +55,7 @@ namespace cheat {
 				continue;
 			}
 			else {
+				std::cout << tslEntity.num_bones << std::endl;
 				tmpList.push_back(tslEntity);
 			}
 		}
@@ -160,7 +161,7 @@ namespace cheat {
 					}
 				}
 
-				if (!current.b_dormant/* && current.health > 0*/) {
+				if (!current.b_dormant && current.health > 0) {
 					if (localPlayer.team == current.team) {
 						if (settings::esp::draw_team) {
 							if (settings::esp::health)
@@ -220,18 +221,18 @@ namespace cheat {
 			}
 		}
 
-		//if (settings::aimbot::master && GetAsyncKeyState(settings::aimbot::aimkey) & 0x8000 && closes_entity.mesh) {
-		//	uint32_t on = 0x1111;
-		//	//do aimbot
-		//	if (utils::is_valid_addr(plocalproxy)) {
-		//		aimbot::aimbot(closes_entity, plocalproxy);
-		//		core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&on, plocalproxy + 0x48, sizeof(uint32_t));
-		//	}
-		//}
-		//else {
-		//	uint32_t off = 0x0;
-		//	core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&off, plocalproxy + 0x48, sizeof(uint32_t));
-		//}
+		if (settings::aimbot::master && GetAsyncKeyState(settings::aimbot::aimkey) & 0x8000 && closes_entity.mesh) {
+			uint32_t on = 0x1111;
+			//do aimbot
+			if (utils::is_valid_addr(plocalproxy)) {
+				aimbot::aimbot(closes_entity, plocalproxy);
+				core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&on, plocalproxy + 0x48, sizeof(uint32_t));
+			}
+		}
+		else {
+			uint32_t off = 0x0;
+			core::write<uint32_t>(globals::t_proc_id, (uintptr_t)&off, plocalproxy + 0x48, sizeof(uint32_t));
+		}
 	}
 
 	void cheat_loop() {
