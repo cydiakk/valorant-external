@@ -1,0 +1,61 @@
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\MSBuild\Microsoft\VC\v160\Microsoft.CppBuild.targets(491,5): warning MSB8028: The intermediate directory (x64\Release\) contains files shared from another project (xBase_DayZ.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+cl : command line warning D9025: overriding '/sdl' with '/GS-'
+  core.cpp
+  decryptor.cpp
+D:\work\cheats\valorant_private_esp_pom\xBase\idadefs.hpp(71,1): warning C4005: 'LOBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(206): message : see previous definition of 'LOBYTE'
+D:\work\cheats\valorant_private_esp_pom\xBase\idadefs.hpp(72,1): warning C4005: 'LOWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(204): message : see previous definition of 'LOWORD'
+D:\work\cheats\valorant_private_esp_pom\xBase\idadefs.hpp(73,1): warning C4005: 'LODWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\intsafe.h(8568): message : see previous definition of 'LODWORD'
+D:\work\cheats\valorant_private_esp_pom\xBase\idadefs.hpp(74,1): warning C4005: 'HIBYTE': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(207): message : see previous definition of 'HIBYTE'
+D:\work\cheats\valorant_private_esp_pom\xBase\idadefs.hpp(75,1): warning C4005: 'HIWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\minwindef.h(205): message : see previous definition of 'HIWORD'
+D:\work\cheats\valorant_private_esp_pom\xBase\idadefs.hpp(76,1): warning C4005: 'HIDWORD': macro redefinition
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\shared\intsafe.h(8571): message : see previous definition of 'HIDWORD'
+D:\work\cheats\valorant_private_esp_pom\xBase\decryptor.cpp(75,38): warning C4244: 'argument': conversion from 'uint64_t' to 'const uint32_t', possible loss of data
+  definitions.cpp
+  dx11_comp.cpp
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(171,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(172,40): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(237,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(238,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(239,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(240,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(247,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(248,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(249,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(250,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(257,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(258,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(259,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(260,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(294,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(295,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(296,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\dx11_comp.cpp(297,11): warning C4244: 'initializing': conversion from 'uint32_t' to 'float', possible loss of data
+  engine.cpp
+  globals.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_impl_dx11.cpp
+  imgui_impl_win32.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  magic.cpp
+  srcns.cpp
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(158,15): warning C4244: 'initializing': conversion from 'double' to 'int', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(183,78): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(190,126): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(190,121): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(202,77): warning C4244: 'argument': conversion from 'double' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(209,125): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(209,120): warning C4244: 'argument': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(242,56): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+D:\work\cheats\valorant_private_esp_pom\xBase\srcns.cpp(243,55): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
+  utils.cpp
+D:\work\cheats\valorant_private_esp_pom\xBase\utils.cpp(24,74): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+  xBase.cpp
+  xBase.vcxproj -> D:\work\cheats\valorant_private_esp_pom\x64\Release\valorant_private_pom.lib
