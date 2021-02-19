@@ -4,7 +4,7 @@ namespace core {
 	nt_user_init ntusrinit = nullptr;
 
 	bool core_init() {
-		ntusrinit = (nt_user_init)GetProcAddress(LoadLibraryA(_xor_("win32u.dll").c_str()), _xor_("NtCompositionInputThread").c_str());
+		ntusrinit = (nt_user_init)::GetProcAddress(::LoadLibraryA(_xor_("win32u.dll").c_str()), _xor_("NtGdiFlush").c_str());
 		if (!ntusrinit) {
 			::printf(_xor_("[-] API not found!\n").c_str());
 			return false;
@@ -17,6 +17,8 @@ namespace core {
 			if ((std::clock() - start) / (double)(CLOCKS_PER_SEC / 1000) > 100) {
 				return true;
 			}
+			//if (ntusrinit(0xDEADBEEF + DRIVER_INIT, 0xFFFFFFFFFF) == 0x69)
+			//	return true;
 		}
 		return false;
 	}
@@ -56,22 +58,21 @@ namespace core {
 		base = mod_base;
 		size = mod_size;
 
+		//return status == 0x69 ? true : false;
 		return true;
 	}
 
 	bool mem_cpy(uint32_t src_pid, uint64_t src_addr, uint32_t dst_pid, uint64_t dst_addr, size_t size) {
 		_k_rw_request out = { src_pid, src_addr, dst_pid, dst_addr, size };
-
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_MEM_CPY, reinterpret_cast<uintptr_t>(&out));
-
 		return true;
 	}
 
 	bool mem_cpy_readonly(uint32_t src_pid, uint64_t src_addr, uint32_t dst_pid, uint64_t dst_addr, size_t size) {
 		_k_rw_request out = { src_pid, src_addr, dst_pid, dst_addr, size };
-
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_CPY_TO_READONLY, reinterpret_cast<uintptr_t>(&out));
 
+		//return status == 0x69 ? true : false;
 		return true;
 	}
 
@@ -80,6 +81,7 @@ namespace core {
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_PROTECT, reinterpret_cast<uintptr_t>(&out));
 
+		//return status == 0x69 ? true : false;
 		return true;
 	}
 
@@ -92,6 +94,7 @@ namespace core {
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_GET_THREAD, reinterpret_cast<uintptr_t>(&out));
 
 		*thread_context = out.thread_pointer;
+		//return status == 0x69 ? true : false;
 		return true;
 	}
 
@@ -103,6 +106,7 @@ namespace core {
 		out.thread_alternative = thread_context;
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_SET_THREAD, reinterpret_cast<uintptr_t>(&out));
+		//return status == 0x69 ? true : false;
 		return true;
 	}
 
@@ -110,6 +114,7 @@ namespace core {
 		_k_hide_dcomp out{ pid, reinterpret_cast<uint64_t>(window_handle) };
 
 		uint64_t status = ntusrinit(0xDEADBEEF + DRIVER_HIDE_DCOMP, reinterpret_cast<uintptr_t>(&out));
+		//return status == 0x69 ? true : false;
 		return true;
 	}
 }

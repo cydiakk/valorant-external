@@ -59,14 +59,52 @@ namespace srcns {
 
 		core::mem_cpy(globals::target_proc::target_process_id, pentitycache, GetCurrentProcessId(), (uintptr_t)entities, sizeof(entityCache) * cache::actor_count);
 
+		localPlayer.get_camera();
+
 		TslEntity tslEntity{};
 		for (uint32_t i = 0; i < cache::actor_count; i++) {
 			entityCache cached = entities[i];
 
 			if (!tslEntity.get_info(cached)) {
+				//std::cout << "-------------------ERROR-----ERROR-------------------------" << std::endl;
+				//std::cout << "current.mesh " << tslEntity.mesh << std::endl;
+				//std::cout << "current.damage_ctrl " << tslEntity.damage_ctrl << std::endl;
+				//std::cout << "current.health " << tslEntity.health << std::endl;
+				//std::cout << "current.player_state " << tslEntity.player_state << std::endl;
+				//std::cout << "current.root_comp " << tslEntity.root_comp << std::endl;
+				//std::cout << "current.num_bones " << tslEntity.num_bones << std::endl;
+				//std::cout << "current.bdormant " << tslEntity.b_dormant << std::endl;
+				//std::cout << "current.head pos screen:  " << tslEntity.head_position_2d.x << "  " << tslEntity.head_position.y << "  " << std::endl;
+				//std::cout << "current.root pos:  " << tslEntity.root_position_2d.x << "  " << tslEntity.root_position_2d.y << "  " << std::endl;
+				//std::cout << "skeletal mesh " << tslEntity.skeletal_mesh << std::endl;
+				//std::cout << "unique id " << tslEntity.unique_id << std::endl;
+				//std::cout << "team" << tslEntity.team << std::endl;
+				//std::cout << "isalive: " << tslEntity.b_alive << std::endl;
+				//std::cout << "camera rotation: " << localPlayer.camera_rotation.x << " " << localPlayer.camera_rotation.y << " " << localPlayer.camera_rotation.z << std::endl;
+				//std::cout << "camera pos: " << localPlayer.camera_position.x  << " " << localPlayer.camera_position.y << " " << localPlayer.camera_position.z << std::endl;
+				//std::cout << "fov: " << localPlayer.fov << std::endl;
+				//std::cout << "------------------------------------------------------------" << std::endl;
 				continue;
 			}
 			else {
+				//std::cout << "-------------------workingworking-------------------------" << std::endl;
+				//std::cout << "current.mesh " << tslEntity.mesh << std::endl;
+				//std::cout << "current.damage_ctrl " << tslEntity.damage_ctrl << std::endl;
+				//std::cout << "current.health " << tslEntity.health << std::endl;
+				//std::cout << "current.player_state " << tslEntity.player_state << std::endl;
+				//std::cout << "current.root_comp " << tslEntity.root_comp << std::endl;
+				//std::cout << "current.num_bones " << tslEntity.num_bones << std::endl;
+				//std::cout << "current.bdormant " << tslEntity.b_dormant << std::endl;
+				//std::cout << "current.head pos screen:  " << tslEntity.head_position_2d.x << "  " << tslEntity.head_position.y << "  " << std::endl;
+				//std::cout << "current.root pos:  " << tslEntity.root_position_2d.x << "  " << tslEntity.root_position_2d.y << "  " << std::endl;
+				//std::cout << "skeletal mesh " << tslEntity.skeletal_mesh << std::endl;
+				//std::cout << "unique id " << tslEntity.unique_id << std::endl;
+				//std::cout << "team" << tslEntity.team << std::endl;
+				//std::cout << "isalive: " << tslEntity.b_alive << std::endl;
+				//std::cout << "camera rotation: " << localPlayer.camera_rotation.x << " " << localPlayer.camera_rotation.y << " " << localPlayer.camera_rotation.z << std::endl;
+				//std::cout << "camera pos: " << localPlayer.camera_position.x << " " << localPlayer.camera_position.y << " " << localPlayer.camera_position.z << std::endl;
+				//std::cout << "fov: " << localPlayer.fov << std::endl;
+				//std::cout << "------------------------------------------------------------" << std::endl;
 				tmpList.push_back(tslEntity);
 			}
 		}
@@ -156,24 +194,6 @@ namespace srcns {
 			distance = localPlayer.camera_position.Distance(current.root_position);
 
 			int height = (current.root_position_2d.y - current.head_position_2d.y) * 2.5;
-
-			//std::cout << "current.mesh " << current.mesh << std::endl;
-			//std::cout << "current.damage_ctrl " << current.damage_ctrl << std::endl;
-			//std::cout << "current.health " << current.health << std::endl;
-			//std::cout << "current.player_state " << current.player_state << std::endl;
-			//std::cout << "current.root_comp " << current.root_comp << std::endl;
-			//std::cout << "current.num_bones " << current.num_bones << std::endl;
-			//std::cout << "current.bdormant " << current.b_dormant << std::endl;
-			//std::cout << "current.head pos screen:  " << current.head_position_2d.x << "  " << current.head_position.y << "  " << std::endl;
-			//std::cout << "current.root pos:  " << current.root_position_2d.x << "  " << current.root_position_2d.y << "  " << std::endl;
-			//std::cout << "skeletal mesh " << current.skeletal_mesh << std::endl;
-			//std::cout << "unique id " << current.unique_id << std::endl;
-			//std::cout << "team" << current.team << std::endl;
-			//std::cout << "isalive: " << current.b_alive << std::endl;
-			//std::cout << "camera rotation: " << localPlayer.camera_rotation.x << localPlayer.camera_rotation.y << localPlayer.camera_rotation.z << std::endl;
-			//std::cout << "camera pos: " << localPlayer.camera_position.x << localPlayer.camera_position.y << localPlayer.camera_position.z << std::endl;
-			//std::cout << "fov: " << localPlayer.fov << std::endl;
-			//std::cout << "------------------------------------------------------------" << std::endl;
 
 			if (!panic) {
 				if (localPlayer.team == current.team) {

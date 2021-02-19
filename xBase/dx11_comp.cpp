@@ -212,7 +212,7 @@ namespace dxcomp {
 		_d3d_device_context->ClearRenderTargetView(dxcomp::_d3d_render_target_view, (float*)&clear_color);
 		ImGui_ImplDX11_RenderDrawData(ImGui::GetDrawData());
 
-		_dxgi_swapchain->Present(1, 0);
+		_dxgi_swapchain->Present(0, 0);
 	}
 
 	void handle_input() {

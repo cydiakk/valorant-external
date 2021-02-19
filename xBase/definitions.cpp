@@ -50,7 +50,7 @@ namespace offsets {
 
 		const uint32_t a_playerstate = 0x3c8;
 		namespace playerstate {
-			const uint32_t team_id_dref = 0x570;
+			const uint32_t team_id_dref = 0x598;
 			const uint32_t team_id = 0xF0;
 		}
 	}

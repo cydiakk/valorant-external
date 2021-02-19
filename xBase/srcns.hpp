@@ -103,7 +103,7 @@ namespace srcns {
 			//get the first byte the 1337 ghetto way
 			this->b_dormant = (bool)(bdormant & ((1 << 8) - 1));
 		}
-
+		
 	public:
 		void get_2d_pos() {
 			this->head_position = engine::GetBoneWithRotation(this->mesh, engine::e_male_bones::Head);
