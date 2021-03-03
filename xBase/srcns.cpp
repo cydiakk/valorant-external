@@ -278,7 +278,7 @@ namespace srcns {
 						style.Colors[ImGuiCol_Button] = nav::esp == true ? ImColor(199, 79, 13) : ImColor(18, 18, 18, 255);
 						if (ImGui::Button(_xor_("Visuals").c_str(), ImVec2(150, 45))) { nav::esp == true ? nav::esp = false : nav::esp = true; };
 
-						ImGui::SameLine(ImGui::GetWindowWidth() - 150);
+						ImGui::SameLine(ImGui::GetWindowWidth() - 200);
 						ImGui::BulletText("Prince of Madness");
 					}
 					ImGui::EndMainMenuBar();
